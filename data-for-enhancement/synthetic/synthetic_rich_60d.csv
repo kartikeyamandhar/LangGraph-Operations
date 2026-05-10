@@ -1,0 +1,589 @@
+shipment_date,planning_day,is_planning_window,corridor_id,item_id,item_name,unique_item_id,dispatch_location
+2026-01-01,History,0,C1_I95_NJ_BOS,99999,Experimental Oncology Drug,EXP-2026-00001,Boston-MGH
+2026-01-01,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00002,Boston-Children
+2026-01-01,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00003,Boston-MGH
+2026-01-01,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00004,Boston-DanaFarber
+2026-01-01,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00005,Boston-MGH
+2026-01-01,History,0,C2_NJ_PHL,10060,Morphine Sulphate,MOR-2026-10006,Philadelphia-Jefferson
+2026-01-01,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10007,Philadelphia-UPenn
+2026-01-01,History,0,C2_NJ_PHL,10060,Morphine Sulphate,MOR-2026-10008,Philadelphia-Jefferson
+2026-01-01,History,0,C2_NJ_PHL,99999,Experimental Oncology Drug,EXP-2026-10009,Philadelphia-CHOP
+2026-01-01,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10010,Philadelphia-UPenn
+2026-01-02,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00011,Boston-Children
+2026-01-02,History,0,C1_I95_NJ_BOS,99999,Experimental Oncology Drug,EXP-2026-00012,Boston-DanaFarber
+2026-01-02,History,0,C1_I95_NJ_BOS,1070,Levalbuterol Inhaler,LEV-2026-00013,Boston-Children
+2026-01-02,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00014,Boston-Children
+2026-01-02,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00015,Boston-Children
+2026-01-02,History,0,C1_I95_NJ_BOS,10060,Morphine Sulphate,MOR-2026-00016,Boston-MGH
+2026-01-02,History,0,C2_NJ_PHL,10040,EpiPen Auto Injector,EPI-2026-10017,Philadelphia-CHOP
+2026-01-02,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10018,Philadelphia-CHOP
+2026-01-02,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10019,Philadelphia-UPenn
+2026-01-02,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10020,Philadelphia-Jefferson
+2026-01-03,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00021,Boston-MGH
+2026-01-03,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00022,Boston-Children
+2026-01-03,History,0,C2_NJ_PHL,10040,EpiPen Auto Injector,EPI-2026-10023,Philadelphia-UPenn
+2026-01-03,History,0,C2_NJ_PHL,10035,Pembrolizumab,PBR-2026-10024,Philadelphia-UPenn
+2026-01-04,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00025,Boston-DanaFarber
+2026-01-04,History,0,C2_NJ_PHL,10070,Albuterol Inhaler 90mcg,ALB-2026-10026,Philadelphia-CHOP
+2026-01-05,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00027,Boston-BWH
+2026-01-05,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00028,Boston-MGH
+2026-01-05,History,0,C1_I95_NJ_BOS,10060,Morphine Sulphate,MOR-2026-00029,Boston-MGH
+2026-01-05,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00030,Boston-MGH
+2026-01-05,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00031,Boston-BWH
+2026-01-05,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00032,Boston-BWH
+2026-01-05,History,0,C2_NJ_PHL,10050,Heparin Sodium,HEP-2026-10033,Philadelphia-Jefferson
+2026-01-05,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10034,Philadelphia-UPenn
+2026-01-05,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10035,Philadelphia-CHOP
+2026-01-05,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10036,Philadelphia-UPenn
+2026-01-06,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00037,Boston-BWH
+2026-01-06,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00038,Boston-MGH
+2026-01-06,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00039,Boston-BWH
+2026-01-06,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00040,Boston-MGH
+2026-01-06,History,0,C1_I95_NJ_BOS,10040,EpiPen Auto Injector,EPI-2026-00041,Boston-Children
+2026-01-06,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10042,Philadelphia-UPenn
+2026-01-06,History,0,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10043,Philadelphia-Jefferson
+2026-01-06,History,0,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10044,Philadelphia-Jefferson
+2026-01-06,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10045,Philadelphia-Jefferson
+2026-01-07,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00046,Boston-DanaFarber
+2026-01-07,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00047,Boston-Children
+2026-01-07,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00048,Boston-MGH
+2026-01-07,History,0,C1_I95_NJ_BOS,10021,Generic Remdesivir 100mg,RMD-2026-00049,Boston-MGH
+2026-01-07,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00050,Boston-DanaFarber
+2026-01-07,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10051,Philadelphia-CHOP
+2026-01-07,History,0,C2_NJ_PHL,10060,Morphine Sulfate,MOR-2026-10052,Philadelphia-Jefferson
+2026-01-07,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10053,Philadelphia-UPenn
+2026-01-07,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10054,Philadelphia-Jefferson
+2026-01-08,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00055,Boston-DanaFarber
+2026-01-08,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00056,Boston-MGH
+2026-01-08,History,0,C1_I95_NJ_BOS,10060,Morphine Sulphate,MOR-2026-00057,Boston-BWH
+2026-01-08,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00058,Boston-BWH
+2026-01-08,History,0,C1_I95_NJ_BOS,10040,Epinephrine Auto-Injector,EPI-2026-00059,Boston-Children
+2026-01-08,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00060,Boston-Children
+2026-01-08,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10061,Philadelphia-UPenn
+2026-01-08,History,0,C2_NJ_PHL,10035,Pembrolizumab (Keytruda),PBR-2026-10062,Philadelphia-UPenn
+2026-01-08,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10063,Philadelphia-CHOP
+2026-01-08,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10064,Philadelphia-UPenn
+2026-01-08,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10065,Philadelphia-CHOP
+2026-01-09,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00066,Boston-DanaFarber
+2026-01-09,History,0,C1_I95_NJ_BOS,10040,Epinephrine Auto-Injector,EPI-2026-00067,Boston-Children
+2026-01-09,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00068,Boston-BWH
+2026-01-09,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00069,Boston-MGH
+2026-01-09,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00070,Boston-BWH
+2026-01-09,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00071,Boston-MGH
+2026-01-09,History,0,C2_NJ_PHL,10070,Albuterol Inhaler 90mcg,ALB-2026-10072,Philadelphia-Jefferson
+2026-01-09,History,0,C2_NJ_PHL,10040,Epinephrine Auto-Injector,EPI-2026-10073,Philadelphia-UPenn
+2026-01-09,History,0,C2_NJ_PHL,10040,EpiPen Auto Injector,EPI-2026-10074,Philadelphia-CHOP
+2026-01-09,History,0,C2_NJ_PHL,10035,Pembrolizumab (Keytruda),PBR-2026-10075,Philadelphia-UPenn
+2026-01-09,History,0,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10076,Philadelphia-Jefferson
+2026-01-10,History,0,C1_I95_NJ_BOS,10040,Epinephrine Auto-Injector,EPI-2026-00077,Boston-DanaFarber
+2026-01-10,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00078,Boston-DanaFarber
+2026-01-10,History,0,C1_I95_NJ_BOS,10040,EpiPen Auto Injector,EPI-2026-00079,Boston-Children
+2026-01-10,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10080,Philadelphia-CHOP
+2026-01-10,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10081,Philadelphia-Jefferson
+2026-01-11,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00082,Boston-BWH
+2026-01-11,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler,ALB-2026-00083,Boston-Children
+2026-01-11,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10084,Philadelphia-CHOP
+2026-01-12,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00085,Boston-DanaFarber
+2026-01-12,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler,ALB-2026-00086,Boston-MGH
+2026-01-12,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00087,Boston-BWH
+2026-01-12,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00088,Boston-DanaFarber
+2026-01-12,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00089,Boston-DanaFarber
+2026-01-12,History,0,C1_I95_NJ_BOS,10035,Generic Pembrolizumab,PBR-2026-00090,Boston-DanaFarber
+2026-01-12,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10091,Philadelphia-CHOP
+2026-01-12,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10092,Philadelphia-UPenn
+2026-01-12,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10093,Philadelphia-Jefferson
+2026-01-12,History,0,C2_NJ_PHL,10070,Albuterol Inhaler 90mcg,ALB-2026-10094,Philadelphia-CHOP
+2026-01-13,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00095,Boston-Children
+2026-01-13,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00096,Boston-BWH
+2026-01-13,History,0,C1_I95_NJ_BOS,99999,Experimental Oncology Drug,EXP-2026-00097,Boston-DanaFarber
+2026-01-13,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00098,Boston-Children
+2026-01-13,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00099,Boston-BWH
+2026-01-13,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00100,Boston-DanaFarber
+2026-01-13,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00101,Boston-BWH
+2026-01-13,History,0,C1_I95_NJ_BOS,10040,Epinephrine Auto-Injector,EPI-2026-00102,Boston-Children
+2026-01-13,History,0,C1_I95_NJ_BOS,10060,Morphine Sulphate,MOR-2026-00103,Boston-MGH
+2026-01-13,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00104,Boston-MGH
+2026-01-13,History,0,C2_NJ_PHL,10070,Albuterol Inhaler,ALB-2026-10105,Philadelphia-CHOP
+2026-01-13,History,0,C2_NJ_PHL,10035,Pembrolizumab,PBR-2026-10106,Philadelphia-CHOP
+2026-01-13,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10107,Philadelphia-CHOP
+2026-01-13,History,0,C2_NJ_PHL,10070,Albuterol Inhaler 90mcg,ALB-2026-10108,Philadelphia-CHOP
+2026-01-13,History,0,C2_NJ_PHL,10035,Pembrolizumab (Keytruda),PBR-2026-10109,Philadelphia-UPenn
+2026-01-13,History,0,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10110,Philadelphia-Jefferson
+2026-01-13,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10111,Philadelphia-CHOP
+2026-01-14,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00112,Boston-DanaFarber
+2026-01-14,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00113,Boston-DanaFarber
+2026-01-14,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00114,Boston-BWH
+2026-01-14,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00115,Boston-MGH
+2026-01-14,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00116,Boston-MGH
+2026-01-14,History,0,C1_I95_NJ_BOS,10040,EpiPen Auto Injector,EPI-2026-00117,Boston-Children
+2026-01-14,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00118,Boston-MGH
+2026-01-14,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00119,Boston-MGH
+2026-01-14,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00120,Boston-Children
+2026-01-14,History,0,C2_NJ_PHL,10040,EpiPen Auto Injector,EPI-2026-10121,Philadelphia-CHOP
+2026-01-14,History,0,C2_NJ_PHL,22222,Remdesivir 200mg,RMD-2026-10122,Philadelphia-UPenn
+2026-01-14,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10123,Philadelphia-Jefferson
+2026-01-14,History,0,C2_NJ_PHL,99999,Experimental Oncology Drug,EXP-2026-10124,Philadelphia-Jefferson
+2026-01-14,History,0,C2_NJ_PHL,10060,Morphine Sulfate,MOR-2026-10125,Philadelphia-Jefferson
+2026-01-14,History,0,C2_NJ_PHL,10060,Morphine Sulfate,MOR-2026-10126,Philadelphia-Jefferson
+2026-01-14,History,0,C2_NJ_PHL,10070,Albuterol Inhaler,ALB-2026-10127,Philadelphia-CHOP
+2026-01-15,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00128,Boston-DanaFarber
+2026-01-15,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00129,Boston-MGH
+2026-01-15,History,0,C1_I95_NJ_BOS,10040,Epinephrine Auto-Injector,EPI-2026-00130,Boston-Children
+2026-01-15,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00131,Boston-Children
+2026-01-15,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00132,Boston-DanaFarber
+2026-01-15,History,0,C1_I95_NJ_BOS,10060,Morphine Sulfate,MOR-2026-00133,Boston-MGH
+2026-01-15,History,0,C2_NJ_PHL,20021,Epinephrine Auto-Injector,EPI-2026-10134,Philadelphia-CHOP
+2026-01-15,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10135,Philadelphia-Jefferson
+2026-01-15,History,0,C2_NJ_PHL,10060,Morphine Sulphate,MOR-2026-10136,Philadelphia-Jefferson
+2026-01-15,History,0,C2_NJ_PHL,10050,Heparin Sodium,HEP-2026-10137,Philadelphia-Jefferson
+2026-01-16,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00138,Boston-BWH
+2026-01-16,History,0,C1_I95_NJ_BOS,10060,Morphine Sulphate,MOR-2026-00139,Boston-MGH
+2026-01-16,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00140,Boston-DanaFarber
+2026-01-16,History,0,C1_I95_NJ_BOS,99999,Experimental Oncology Drug,EXP-2026-00141,Boston-Children
+2026-01-16,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00142,Boston-MGH
+2026-01-16,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10143,Philadelphia-CHOP
+2026-01-16,History,0,C2_NJ_PHL,10023,Generic Insulin Aspart,INS-2026-10144,Philadelphia-UPenn
+2026-01-16,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10145,Philadelphia-UPenn
+2026-01-16,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10146,Philadelphia-UPenn
+2026-01-16,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10147,Philadelphia-CHOP
+2026-01-17,History,0,C1_I95_NJ_BOS,10040,Epinephrine Auto-Injector,EPI-2026-00148,Boston-Children
+2026-01-17,History,0,C1_I95_NJ_BOS,10040,EpiPen Auto Injector,EPI-2026-00149,Boston-MGH
+2026-01-17,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00150,Boston-DanaFarber
+2026-01-17,History,0,C2_NJ_PHL,10040,EpiPen Auto Injector,EPI-2026-10151,Philadelphia-CHOP
+2026-01-17,History,0,C2_NJ_PHL,10040,Epinephrine Auto-Injector,EPI-2026-10152,Philadelphia-CHOP
+2026-01-18,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00153,Boston-BWH
+2026-01-18,History,0,C1_I95_NJ_BOS,10050,Generic Heparin Na,HEP-2026-00154,Boston-MGH
+2026-01-18,History,0,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10155,Philadelphia-Jefferson
+2026-01-19,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00156,Boston-Children
+2026-01-19,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00157,Boston-Children
+2026-01-19,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00158,Boston-BWH
+2026-01-19,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00159,Boston-DanaFarber
+2026-01-19,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00160,Boston-Children
+2026-01-19,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10161,Philadelphia-UPenn
+2026-01-19,History,0,C2_NJ_PHL,10040,Epinephrine Auto-Injector,EPI-2026-10162,Philadelphia-CHOP
+2026-01-19,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10163,Philadelphia-UPenn
+2026-01-19,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10164,Philadelphia-UPenn
+2026-01-19,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10165,Philadelphia-UPenn
+2026-01-20,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00166,Boston-Children
+2026-01-20,History,0,C1_I95_NJ_BOS,10060,Morphine Sulfate,MOR-2026-00167,Boston-DanaFarber
+2026-01-20,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00168,Boston-MGH
+2026-01-20,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00169,Boston-BWH
+2026-01-20,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00170,Boston-DanaFarber
+2026-01-20,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00171,Boston-MGH
+2026-01-20,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10172,Philadelphia-Jefferson
+2026-01-20,History,0,C2_NJ_PHL,10060,Morphine Sulphate,MOR-2026-10173,Philadelphia-Jefferson
+2026-01-20,History,0,C2_NJ_PHL,99999,Experimental Oncology Drug,EXP-2026-10174,Philadelphia-CHOP
+2026-01-20,History,0,C2_NJ_PHL,88888,Heparin Sodium,HEP-2026-10175,Philadelphia-Jefferson
+2026-01-20,History,0,C2_NJ_PHL,10060,Morphine Sulphate,MOR-2026-10176,Philadelphia-Jefferson
+2026-01-21,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00177,Boston-Children
+2026-01-21,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00178,Boston-Children
+2026-01-21,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler,ALB-2026-00179,Boston-Children
+2026-01-21,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00180,Boston-Children
+2026-01-21,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00181,Boston-MGH
+2026-01-21,History,0,C2_NJ_PHL,10050,Heparin Sodium,HEP-2026-10182,Philadelphia-Jefferson
+2026-01-21,History,0,C2_NJ_PHL,99999,Experimental Oncology Drug,EXP-2026-10183,Philadelphia-UPenn
+2026-01-21,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10184,Philadelphia-Jefferson
+2026-01-21,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10185,Philadelphia-CHOP
+2026-01-22,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00186,Boston-Children
+2026-01-22,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00187,Boston-DanaFarber
+2026-01-22,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler 90mcg,ALB-2026-00188,Boston-Children
+2026-01-22,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00189,Boston-MGH
+2026-01-22,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00190,Boston-BWH
+2026-01-22,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10191,Philadelphia-Jefferson
+2026-01-22,History,0,C2_NJ_PHL,10035,Pembrolizumab (Keytruda),PBR-2026-10192,Philadelphia-Jefferson
+2026-01-22,History,0,C2_NJ_PHL,10070,Albuterol Inhaler 90mcg,ALB-2026-10193,Philadelphia-CHOP
+2026-01-22,History,0,C2_NJ_PHL,10035,Pembrolizumab (Keytruda),PBR-2026-10194,Philadelphia-UPenn
+2026-01-23,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00195,Boston-MGH
+2026-01-23,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00196,Boston-BWH
+2026-01-23,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler 90mcg,ALB-2026-00197,Boston-Children
+2026-01-23,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00198,Boston-BWH
+2026-01-23,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00199,Boston-BWH
+2026-01-23,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00200,Boston-Children
+2026-01-23,History,0,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10201,Philadelphia-Jefferson
+2026-01-23,History,0,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10202,Philadelphia-Jefferson
+2026-01-23,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10203,Philadelphia-UPenn
+2026-01-23,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10204,Philadelphia-UPenn
+2026-01-23,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10205,Philadelphia-Jefferson
+2026-01-24,History,0,C1_I95_NJ_BOS,10040,Epinephrine Auto-Injector,EPI-2026-00206,Boston-Children
+2026-01-24,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00207,Boston-DanaFarber
+2026-01-24,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00208,Boston-MGH
+2026-01-24,History,0,C2_NJ_PHL,10060,Morphine Sulphate,MOR-2026-10209,Philadelphia-Jefferson
+2026-01-24,History,0,C2_NJ_PHL,10040,Epinephrine Auto-Injector,EPI-2026-10210,Philadelphia-Jefferson
+2026-01-25,History,0,C1_I95_NJ_BOS,20021,Insulin Lispro,INS-2026-00211,Boston-BWH
+2026-01-25,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00212,Boston-BWH
+2026-01-25,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10213,Philadelphia-CHOP
+2026-01-26,History,0,C1_I95_NJ_BOS,99999,Experimental Oncology Drug,EXP-2026-00214,Boston-DanaFarber
+2026-01-26,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00215,Boston-BWH
+2026-01-26,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00216,Boston-DanaFarber
+2026-01-26,History,0,C1_I95_NJ_BOS,10040,EpiPen Auto Injector,EPI-2026-00217,Boston-Children
+2026-01-26,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler 90mcg,ALB-2026-00218,Boston-MGH
+2026-01-26,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00219,Boston-MGH
+2026-01-26,History,0,C2_NJ_PHL,10035,Pembrolizumab,PBR-2026-10220,Philadelphia-UPenn
+2026-01-26,History,0,C2_NJ_PHL,10035,Pembrolizumab (Keytruda),PBR-2026-10221,Philadelphia-CHOP
+2026-01-26,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10222,Philadelphia-CHOP
+2026-01-26,History,0,C2_NJ_PHL,10070,Albuterol Inhaler,ALB-2026-10223,Philadelphia-CHOP
+2026-01-26,History,0,C2_NJ_PHL,10070,Albuterol Inhaler 90mcg,ALB-2026-10224,Philadelphia-CHOP
+2026-01-27,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00225,Boston-MGH
+2026-01-27,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00226,Boston-MGH
+2026-01-27,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,INS-2026-00212,Boston-MGH
+2026-01-27,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00228,Boston-BWH
+2026-01-27,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00229,Boston-BWH
+2026-01-27,History,0,C1_I95_NJ_BOS,10060,Morphine Sulfate,MOR-2026-00230,Boston-MGH
+2026-01-27,History,0,C2_NJ_PHL,10035,Pembrolizumab,PBR-2026-10231,Philadelphia-UPenn
+2026-01-27,History,0,C2_NJ_PHL,10035,Pembrolizumab,PBR-2026-10232,Philadelphia-UPenn
+2026-01-27,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10233,Philadelphia-UPenn
+2026-01-27,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10234,Philadelphia-UPenn
+2026-01-28,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00235,Boston-MGH
+2026-01-28,History,0,C1_I95_NJ_BOS,10060,Generic Morphine Sulphate,MOR-2026-00236,Boston-MGH
+2026-01-28,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler,ALB-2026-00237,Boston-Children
+2026-01-28,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00238,Boston-MGH
+2026-01-28,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00239,Boston-BWH
+2026-01-28,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00240,Boston-DanaFarber
+2026-01-28,History,0,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10241,Philadelphia-Jefferson
+2026-01-28,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10242,Philadelphia-CHOP
+2026-01-28,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10243,Philadelphia-UPenn
+2026-01-28,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10244,Philadelphia-UPenn
+2026-01-28,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10245,Philadelphia-Jefferson
+2026-01-29,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler,ALB-2026-00246,Boston-Children
+2026-01-29,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00247,Boston-BWH
+2026-01-29,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00248,Boston-BWH
+2026-01-29,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00249,Boston-BWH
+2026-01-29,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00250,Boston-DanaFarber
+2026-01-29,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00251,Boston-Children
+2026-01-29,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00252,Boston-MGH
+2026-01-29,History,0,C2_NJ_PHL,10040,EpiPen Auto Injector,EPI-2026-10253,Philadelphia-CHOP
+2026-01-29,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10254,Philadelphia-UPenn
+2026-01-29,History,0,C2_NJ_PHL,10050,Heparin Sodium,HEP-2026-10255,Philadelphia-Jefferson
+2026-01-29,History,0,C2_NJ_PHL,10040,Epinephrine Auto-Injector,EPI-2026-10256,Philadelphia-CHOP
+2026-01-29,History,0,C2_NJ_PHL,99999,Experimental Oncology Drug,EXP-2026-10257,Philadelphia-Jefferson
+2026-01-30,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00258,Boston-DanaFarber
+2026-01-30,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,,Boston-MGH
+2026-01-30,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler,ALB-2026-00260,Boston-Children
+2026-01-30,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00412,Boston-Children
+2026-01-30,History,0,C1_I95_NJ_BOS,99999,Experimental Oncology Drug,EXP-2026-00262,Boston-DanaFarber
+2026-01-30,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,,Boston-DanaFarber
+2026-01-30,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10264,Philadelphia-UPenn
+2026-01-30,History,0,C2_NJ_PHL,10050,Heparin Sodium,HEP-2026-10265,Philadelphia-Jefferson
+2026-01-30,History,0,C2_NJ_PHL,10070,Albuterol Inhaler,ALB-2026-10266,Philadelphia-CHOP
+2026-01-30,History,0,C2_NJ_PHL,10035,Pembrolizumab,PBR-2026-10267,Philadelphia-UPenn
+2026-01-30,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10268,Philadelphia-Jefferson
+2026-01-31,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00269,Boston-MGH
+2026-01-31,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00270,Boston-BWH
+2026-01-31,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler 90mcg,ALB-2026-00271,Boston-Children
+2026-01-31,History,0,C2_NJ_PHL,10040,EpiPen Auto Injector,EPI-2026-10272,Philadelphia-CHOP
+2026-01-31,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10273,Philadelphia-CHOP
+2026-02-01,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00274,Boston-Children
+2026-02-01,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler,ALB-2026-00275,Boston-DanaFarber
+2026-02-01,History,0,C2_NJ_PHL,20021,Remdesivir 100 mg,RMD-2026-10276,Philadelphia-Jefferson
+2026-02-02,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00277,Boston-MGH
+2026-02-02,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00278,Boston-BWH
+2026-02-02,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00279,Boston-Children
+2026-02-02,History,0,C1_I95_NJ_BOS,10040,Epinephrine Auto-Injector,EPI-2026-00280,Boston-Children
+2026-02-02,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00281,Boston-MGH
+2026-02-02,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00282,Boston-MGH
+2026-02-02,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00283,Boston-DanaFarber
+2026-02-02,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10284,Philadelphia-Jefferson
+2026-02-02,History,0,C2_NJ_PHL,10040,Epinephrine Auto-Injector,EPI-2026-10285,Philadelphia-CHOP
+2026-02-02,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10286,Philadelphia-UPenn
+2026-02-02,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10287,Philadelphia-UPenn
+2026-02-02,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10288,Philadelphia-CHOP
+2026-02-02,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10289,Philadelphia-CHOP
+2026-02-03,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00290,Boston-BWH
+2026-02-03,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00291,Boston-BWH
+2026-02-03,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00292,Boston-DanaFarber
+2026-02-03,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00293,Boston-BWH
+2026-02-03,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00294,Boston-BWH
+2026-02-03,History,0,C1_I95_NJ_BOS,10040,EpiPen Auto Injector,EPI-2026-00295,Boston-BWH
+2026-02-03,History,0,C2_NJ_PHL,10050,Heparin Sodium,HEP-2026-10296,Philadelphia-Jefferson
+2026-02-03,History,0,C2_NJ_PHL,10035,Pembrolizumab,PBR-2026-10297,Philadelphia-Jefferson
+2026-02-03,History,0,C2_NJ_PHL,10060,Morphine Sulfate,MOR-2026-10298,Philadelphia-Jefferson
+2026-02-03,History,0,C2_NJ_PHL,10035,Pembrolizumab,PBR-2026-10299,Philadelphia-UPenn
+2026-02-03,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10300,Philadelphia-Jefferson
+2026-02-04,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00301,Boston-BWH
+2026-02-04,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00302,Boston-MGH
+2026-02-04,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00303,Boston-BWH
+2026-02-04,History,0,C1_I95_NJ_BOS,10060,Morphine Sulphate,MOR-2026-00304,Boston-BWH
+2026-02-04,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00305,Boston-MGH
+2026-02-04,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00306,Boston-DanaFarber
+2026-02-04,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10307,Philadelphia-CHOP
+2026-02-04,History,0,C2_NJ_PHL,10050,Heparin Sodium,HEP-2026-10308,Philadelphia-Jefferson
+2026-02-04,History,0,C2_NJ_PHL,10035,Pembrolizumab (Keytruda),,Philadelphia-UPenn
+2026-02-04,History,0,C2_NJ_PHL,10050,Heparin Sodium,HEP-2026-10310,Philadelphia-Jefferson
+2026-02-04,History,0,C2_NJ_PHL,10060,Morphine Sulfate,MOR-2026-10311,Philadelphia-Jefferson
+2026-02-05,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00312,Boston-MGH
+2026-02-05,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00313,Boston-DanaFarber
+2026-02-05,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00314,Boston-DanaFarber
+2026-02-05,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00315,Boston-MGH
+2026-02-05,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00316,Boston-MGH
+2026-02-05,History,0,C2_NJ_PHL,10035,Pembrolizumab,PBR-2026-10317,Philadelphia-UPenn
+2026-02-05,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10318,Philadelphia-CHOP
+2026-02-05,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10319,Philadelphia-CHOP
+2026-02-05,History,0,C2_NJ_PHL,10060,Morphine Sulfate,MOR-2026-10320,Philadelphia-Jefferson
+2026-02-05,History,0,C2_NJ_PHL,10060,Morphine Sulfate,MOR-2026-10321,Philadelphia-CHOP
+2026-02-06,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00322,Boston-DanaFarber
+2026-02-06,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00323,Boston-Children
+2026-02-06,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00324,Boston-DanaFarber
+2026-02-06,History,0,C1_I95_NJ_BOS,10040,EpiPen Auto Injector,EPI-2026-00325,Boston-Children
+2026-02-06,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00326,Boston-BWH
+2026-02-06,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00327,Boston-MGH
+2026-02-06,History,0,C2_NJ_PHL,10060,Morphine Sulfate,MOR-2026-10328,Philadelphia-Jefferson
+2026-02-06,History,0,C2_NJ_PHL,10060,Morphine Sulfate,MOR-2026-10329,Philadelphia-Jefferson
+2026-02-06,History,0,C2_NJ_PHL,10060,Morphine Sulphate,MOR-2026-10330,Philadelphia-Jefferson
+2026-02-06,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10331,Philadelphia-UPenn
+2026-02-06,History,0,C2_NJ_PHL,10060,Morphine Sulphate,MOR-2026-10332,Philadelphia-Jefferson
+2026-02-06,History,0,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10333,Philadelphia-UPenn
+2026-02-07,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00334,Boston-Children
+2026-02-07,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00335,Boston-DanaFarber
+2026-02-07,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00336,Boston-DanaFarber
+2026-02-07,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10337,Philadelphia-Jefferson
+2026-02-07,History,0,C2_NJ_PHL,10040,EpiPen Auto Injector,EPI-2026-10338,Philadelphia-CHOP
+2026-02-08,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00339,Boston-Children
+2026-02-08,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00340,Boston-Children
+2026-02-08,History,0,C2_NJ_PHL,1070,Insulin Aspart,INS-2026-10341,Philadelphia-Jefferson
+2026-02-08,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10342,Philadelphia-CHOP
+2026-02-09,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00343,Boston-Children
+2026-02-09,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,,Boston-BWH
+2026-02-09,History,0,C1_I95_NJ_BOS,10021,Generic Remdesivir 200mg,RMD-2026-00345,Boston-Children
+2026-02-09,History,0,C1_I95_NJ_BOS,10040,EpiPen Auto Injector,EPI-2026-00346,Boston-Children
+2026-02-09,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00347,Boston-Children
+2026-02-09,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00348,Boston-MGH
+2026-02-09,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00349,Boston-BWH
+2026-02-09,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler 90mcg,ALB-2026-00350,Boston-Children
+2026-02-09,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00351,Boston-MGH
+2026-02-09,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00352,Boston-Children
+2026-02-09,History,0,C2_NJ_PHL,10040,Epinephrine Auto-Injector,EPI-2026-10353,Philadelphia-CHOP
+2026-02-09,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10354,Philadelphia-UPenn
+2026-02-09,History,0,C2_NJ_PHL,10060,Morphine Sulfate,MOR-2026-10355,Philadelphia-Jefferson
+2026-02-09,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10356,Philadelphia-CHOP
+2026-02-09,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10357,Philadelphia-UPenn
+2026-02-09,History,0,C2_NJ_PHL,10035,Pembrolizumab,PBR-2026-10358,Philadelphia-UPenn
+2026-02-09,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10359,Philadelphia-UPenn
+2026-02-09,History,0,C2_NJ_PHL,10070,Albuterol Inhaler 90mcg,ALB-2026-10360,Philadelphia-CHOP
+2026-02-09,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10361,Philadelphia-CHOP
+2026-02-10,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00362,Boston-Children
+2026-02-10,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00363,Boston-BWH
+2026-02-10,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00364,Boston-DanaFarber
+2026-02-10,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00365,Boston-DanaFarber
+2026-02-10,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00366,Boston-MGH
+2026-02-10,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00367,Boston-Children
+2026-02-10,History,0,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10368,Philadelphia-Jefferson
+2026-02-10,History,0,C2_NJ_PHL,10040,EpiPen Auto Injector,EPI-2026-10369,Philadelphia-CHOP
+2026-02-10,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10370,Philadelphia-Jefferson
+2026-02-10,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10371,Philadelphia-UPenn
+2026-02-11,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00372,Boston-MGH
+2026-02-11,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00373,Boston-DanaFarber
+2026-02-11,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00374,Boston-MGH
+2026-02-11,History,0,C1_I95_NJ_BOS,10040,Epinephrine Auto-Injector,EPI-2026-00375,Boston-DanaFarber
+2026-02-11,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00376,Boston-DanaFarber
+2026-02-11,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00377,Boston-DanaFarber
+2026-02-11,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10378,Philadelphia-UPenn
+2026-02-11,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10379,Philadelphia-Jefferson
+2026-02-11,History,0,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10380,Philadelphia-Jefferson
+2026-02-11,History,0,C2_NJ_PHL,10040,Epinephrine Auto-Injector,EPI-2026-10381,Philadelphia-CHOP
+2026-02-11,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10382,Philadelphia-UPenn
+2026-02-12,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler,ALB-2026-00383,Boston-Children
+2026-02-12,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler 90mcg,ALB-2026-00384,Boston-Children
+2026-02-12,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00385,Boston-MGH
+2026-02-12,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00386,Boston-BWH
+2026-02-12,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00387,Boston-BWH
+2026-02-12,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00388,Boston-MGH
+2026-02-12,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00389,Boston-DanaFarber
+2026-02-12,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10390,Philadelphia-UPenn
+2026-02-12,History,0,C2_NJ_PHL,10060,Morphine Sulfate,MOR-2026-10391,Philadelphia-CHOP
+2026-02-12,History,0,C2_NJ_PHL,10050,Heparin Sodium,HEP-2026-10392,Philadelphia-Jefferson
+2026-02-12,History,0,C2_NJ_PHL,10070,Albuterol Inhaler 90mcg,,Philadelphia-UPenn
+2026-02-13,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00394,Boston-MGH
+2026-02-13,History,0,C1_I95_NJ_BOS,10040,EpiPen Auto Injector,EPI-2026-00395,Boston-Children
+2026-02-13,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00396,Boston-Children
+2026-02-13,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00397,Boston-Children
+2026-02-13,History,0,C1_I95_NJ_BOS,99999,Experimental Oncology Drug,EXP-2026-00398,Boston-BWH
+2026-02-13,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00399,Boston-Children
+2026-02-13,History,0,C2_NJ_PHL,10040,EpiPen Auto Injector,EPI-2026-10400,Philadelphia-CHOP
+2026-02-13,History,0,C2_NJ_PHL,10070,Albuterol Inhaler 90mcg,ALB-2026-10401,Philadelphia-CHOP
+2026-02-13,History,0,C2_NJ_PHL,10060,Generic Morphine Sulfate,MOR-2026-10402,Philadelphia-Jefferson
+2026-02-13,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10403,Philadelphia-CHOP
+2026-02-13,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10404,Philadelphia-UPenn
+2026-02-13,History,0,C2_NJ_PHL,10035,Pembrolizumab,PBR-2026-10405,Philadelphia-UPenn
+2026-02-14,History,0,C1_I95_NJ_BOS,88888,EpiPen Auto Injector,EPI-2026-00406,Boston-Children
+2026-02-14,History,0,C1_I95_NJ_BOS,22222,Insulin Aspart,INS-2026-00407,Boston-MGH
+2026-02-14,History,0,C1_I95_NJ_BOS,10021,Generic Remdesivir 100 mg,RMD-2026-00408,Boston-BWH
+2026-02-14,History,0,C2_NJ_PHL,22222,Remdesivir 100mg,RMD-2026-10409,Philadelphia-UPenn
+2026-02-14,History,0,C2_NJ_PHL,20021,Epinephrine Auto-Injector,EPI-2026-10410,Philadelphia-CHOP
+2026-02-14,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10411,Philadelphia-CHOP
+2026-02-15,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00412,Boston-DanaFarber
+2026-02-15,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler 90mcg,ALB-2026-00413,Boston-BWH
+2026-02-15,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10414,Philadelphia-UPenn
+2026-02-16,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00415,Boston-DanaFarber
+2026-02-16,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00416,Boston-MGH
+2026-02-16,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00417,Boston-MGH
+2026-02-16,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00418,Boston-BWH
+2026-02-16,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00419,Boston-BWH
+2026-02-16,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00420,Boston-MGH
+2026-02-16,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10421,Philadelphia-CHOP
+2026-02-16,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10422,Philadelphia-Jefferson
+2026-02-16,History,0,C2_NJ_PHL,20021,Remdesivir 200mg,RMD-2026-10423,Philadelphia-Jefferson
+2026-02-16,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10424,Philadelphia-CHOP
+2026-02-16,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10425,Philadelphia-UPenn
+2026-02-16,History,0,C2_NJ_PHL,10035,Pembrolizumab (Keytruda),PBR-2026-10426,Philadelphia-UPenn
+2026-02-17,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00427,Boston-DanaFarber
+2026-02-17,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00428,Boston-MGH
+2026-02-17,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00429,Boston-MGH
+2026-02-17,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00430,Boston-DanaFarber
+2026-02-17,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00431,Boston-Children
+2026-02-17,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler 90mcg,ALB-2026-00432,Boston-Children
+2026-02-17,History,0,C2_NJ_PHL,10070,Albuterol Inhaler,ALB-2026-10433,Philadelphia-CHOP
+2026-02-17,History,0,C2_NJ_PHL,11111,Remdesivir 100mg,RMD-2026-10434,Philadelphia-UPenn
+2026-02-17,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10435,Philadelphia-CHOP
+2026-02-17,History,0,C2_NJ_PHL,10023,Generic Insulin Aspart,INS-2026-10436,Philadelphia-UPenn
+2026-02-17,History,0,C2_NJ_PHL,10070,Albuterol Inhaler 90mcg,ALB-2026-10437,Philadelphia-CHOP
+2026-02-18,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00438,Boston-DanaFarber
+2026-02-18,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00439,Boston-MGH
+2026-02-18,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00440,Boston-MGH
+2026-02-18,History,0,C1_I95_NJ_BOS,99999,Experimental Oncology Drug,EXP-2026-00441,Boston-MGH
+2026-02-18,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler,ALB-2026-00442,Boston-BWH
+2026-02-18,History,0,C1_I95_NJ_BOS,10040,EpiPen Auto Injector,EPI-2026-00443,Boston-Children
+2026-02-18,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10444,Philadelphia-Jefferson
+2026-02-18,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10445,Philadelphia-Jefferson
+2026-02-18,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10446,Philadelphia-CHOP
+2026-02-18,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10447,Philadelphia-CHOP
+2026-02-19,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00448,Boston-DanaFarber
+2026-02-19,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00449,Boston-BWH
+2026-02-19,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00450,Boston-BWH
+2026-02-19,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler 90mcg,ALB-2026-00451,Boston-BWH
+2026-02-19,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00452,Boston-DanaFarber
+2026-02-19,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00453,Boston-MGH
+2026-02-19,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10454,Philadelphia-UPenn
+2026-02-19,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10455,Philadelphia-CHOP
+2026-02-19,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10456,Philadelphia-UPenn
+2026-02-19,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10457,Philadelphia-CHOP
+2026-02-19,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10458,Philadelphia-CHOP
+2026-02-20,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00459,Boston-BWH
+2026-02-20,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00460,Boston-DanaFarber
+2026-02-20,History,0,C1_I95_NJ_BOS,10023,Generic Insulin Aspart,INS-2026-00461,Boston-MGH
+2026-02-20,History,0,C1_I95_NJ_BOS,22222,Remdesivir 200mg,RMD-2026-00462,Boston-MGH
+2026-02-20,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00463,Boston-MGH
+2026-02-20,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00464,Boston-DanaFarber
+2026-02-20,History,0,C1_I95_NJ_BOS,20021,Albuterol Inhaler 90mcg,ALB-2026-00465,Boston-Children
+2026-02-20,History,0,C2_NJ_PHL,11111,Remdesivir 100 mg,RMD-2026-10466,Philadelphia-CHOP
+2026-02-20,History,0,C2_NJ_PHL,10070,Albuterol Inhaler,ALB-2026-10467,Philadelphia-CHOP
+2026-02-20,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10468,Philadelphia-UPenn
+2026-02-20,History,0,C2_NJ_PHL,10035,Pembrolizumab,PBR-2026-10469,Philadelphia-UPenn
+2026-02-20,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10470,Philadelphia-UPenn
+2026-02-21,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00471,Boston-Children
+2026-02-21,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00472,Boston-DanaFarber
+2026-02-21,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00473,Boston-MGH
+2026-02-21,History,0,C2_NJ_PHL,10035,Pembrolizumab (Keytruda),PBR-2026-10474,Philadelphia-UPenn
+2026-02-21,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10475,Philadelphia-CHOP
+2026-02-22,History,0,C1_I95_NJ_BOS,10060,Morphine Sulfate,MOR-2026-00476,Boston-BWH
+2026-02-22,History,0,C1_I95_NJ_BOS,10060,Morphine Sulphate,MOR-2026-00477,Boston-DanaFarber
+2026-02-22,History,0,C2_NJ_PHL,10060,Morphine Sulfate,MOR-2026-10478,Philadelphia-Jefferson
+2026-02-22,History,0,C2_NJ_PHL,10070,Albuterol Inhaler,ALB-2026-10479,Philadelphia-CHOP
+2026-02-23,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00480,Boston-Children
+2026-02-23,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00481,Boston-DanaFarber
+2026-02-23,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00482,Boston-BWH
+2026-02-23,History,0,C1_I95_NJ_BOS,20021,Remdesivir 100 mg,RMD-2026-00483,Boston-BWH
+2026-02-23,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00484,Boston-BWH
+2026-02-23,History,0,C1_I95_NJ_BOS,10050,Heparin Na,HEP-2026-00485,Boston-BWH
+2026-02-23,History,0,C1_I95_NJ_BOS,10021,Generic Remdesivir 200mg,RMD-2026-00486,Boston-MGH
+2026-02-23,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10487,Philadelphia-UPenn
+2026-02-23,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10488,Philadelphia-CHOP
+2026-02-23,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10489,Philadelphia-UPenn
+2026-02-23,History,0,C2_NJ_PHL,10060,Morphine Sulfate,MOR-2026-10490,Philadelphia-Jefferson
+2026-02-23,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10491,Philadelphia-UPenn
+2026-02-24,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00492,Boston-MGH
+2026-02-24,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00493,Boston-MGH
+2026-02-24,History,0,C1_I95_NJ_BOS,10040,Epinephrine Auto-Injector,EPI-2026-00494,Boston-Children
+2026-02-24,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00495,Boston-Children
+2026-02-24,History,0,C1_I95_NJ_BOS,10060,Morphine Sulfate,MOR-2026-00496,Boston-Children
+2026-02-24,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00497,Boston-BWH
+2026-02-24,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00498,Boston-BWH
+2026-02-24,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10499,Philadelphia-Jefferson
+2026-02-24,History,0,C2_NJ_PHL,10040,Epinephrine Auto-Injector,EPI-2026-10500,Philadelphia-Jefferson
+2026-02-24,History,0,C2_NJ_PHL,10035,Pembrolizumab (Keytruda),PBR-2026-10501,Philadelphia-UPenn
+2026-02-24,History,0,C2_NJ_PHL,10050,Heparin Sodium,HEP-2026-10502,Philadelphia-Jefferson
+2026-02-24,History,0,C2_NJ_PHL,10035,Pembrolizumab,PBR-2026-10503,Philadelphia-Jefferson
+2026-02-25,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00504,Boston-BWH
+2026-02-25,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00505,Boston-Children
+2026-02-25,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00506,Boston-DanaFarber
+2026-02-25,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00507,Boston-DanaFarber
+2026-02-25,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00508,Boston-DanaFarber
+2026-02-25,History,0,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00509,Boston-MGH
+2026-02-25,History,0,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10510,Philadelphia-CHOP
+2026-02-25,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10511,Philadelphia-UPenn
+2026-02-25,History,0,C2_NJ_PHL,10050,Heparin Sodium,HEP-2026-10512,Philadelphia-Jefferson
+2026-02-25,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10513,Philadelphia-UPenn
+2026-02-25,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10514,Philadelphia-CHOP
+2026-02-26,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00515,Boston-MGH
+2026-02-26,History,0,C1_I95_NJ_BOS,10040,Epinephrine Auto-Injector,EPI-2026-00516,Boston-Children
+2026-02-26,History,0,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00517,Boston-MGH
+2026-02-26,History,0,C1_I95_NJ_BOS,22222,Remdesivir 100mg,RMD-2026-00518,Boston-Children
+2026-02-26,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00519,Boston-MGH
+2026-02-26,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00520,Boston-BWH
+2026-02-26,History,0,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00521,Boston-MGH
+2026-02-26,History,0,C2_NJ_PHL,10060,Morphine Sulphate,MOR-2026-10522,Philadelphia-Jefferson
+2026-02-26,History,0,C2_NJ_PHL,10040,Epinephrine Auto-Injector,EPI-2026-10523,Philadelphia-CHOP
+2026-02-26,History,0,C2_NJ_PHL,10022,Insulin Lispro,INS-2026-10524,Philadelphia-CHOP
+2026-02-26,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10525,Philadelphia-UPenn
+2026-02-26,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10526,Philadelphia-UPenn
+2026-02-27,History,0,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00527,Boston-DanaFarber
+2026-02-27,History,0,C1_I95_NJ_BOS,10050,Heparin Sodium,HEP-2026-00528,Boston-MGH
+2026-02-27,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00529,Boston-BWH
+2026-02-27,History,0,C1_I95_NJ_BOS,10040,EpiPen Auto Injector,EPI-2026-00530,Boston-Children
+2026-02-27,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00531,Boston-MGH
+2026-02-27,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler 90mcg,ALB-2026-00532,Boston-Children
+2026-02-27,History,0,C1_I95_NJ_BOS,20021,Experimental Oncology Drug,EXP-2026-00533,Boston-DanaFarber
+2026-02-27,History,0,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10534,Philadelphia-Jefferson
+2026-02-27,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10535,Philadelphia-UPenn
+2026-02-27,History,0,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10536,Philadelphia-Jefferson
+2026-02-27,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10537,Philadelphia-Jefferson
+2026-02-27,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10538,Philadelphia-Jefferson
+2026-02-27,History,0,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10539,Philadelphia-CHOP
+2026-02-28,History,0,C1_I95_NJ_BOS,99999,Experimental Oncology Drug,EXP-2026-00540,Boston-DanaFarber
+2026-02-28,History,0,C1_I95_NJ_BOS,10060,Morphine Sulfate,MOR-2026-00541,Boston-MGH
+2026-02-28,History,0,C1_I95_NJ_BOS,10022,Insulin Lispro,INS-2026-00542,Boston-BWH
+2026-02-28,History,0,C2_NJ_PHL,99999,Experimental Oncology Drug,EXP-2026-10543,Philadelphia-UPenn
+2026-02-28,History,0,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10544,Philadelphia-CHOP
+2026-03-01,History,0,C1_I95_NJ_BOS,10070,Albuterol Inhaler,ALB-2026-00545,Boston-BWH
+2026-03-01,History,0,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00546,Boston-Children
+2026-03-01,History,0,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10547,Philadelphia-Jefferson
+2026-03-02,Day0,1,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00548,Boston-Children
+2026-03-02,Day0,1,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00549,Boston-DanaFarber
+2026-03-02,Day0,1,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00550,Boston-Children
+2026-03-02,Day0,1,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00551,Boston-BWH
+2026-03-02,Day0,1,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00552,Boston-MGH
+2026-03-02,Day0,1,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00553,Boston-DanaFarber
+2026-03-02,Day0,1,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00554,Boston-BWH
+2026-03-02,Day0,1,C1_I95_NJ_BOS,10021,Remdesivir 100mg,,Boston-BWH
+2026-03-02,Day0,1,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00556,Boston-DanaFarber
+2026-03-02,Day0,1,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00557,Boston-DanaFarber
+2026-03-02,Day0,1,C2_NJ_PHL,10021,Remdesivir 100 mg,,Philadelphia-Jefferson
+2026-03-02,Day0,1,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10559,Philadelphia-CHOP
+2026-03-02,Day0,1,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10560,Philadelphia-CHOP
+2026-03-02,Day0,1,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10561,Philadelphia-Jefferson
+2026-03-02,Day0,1,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10562,Philadelphia-CHOP
+2026-03-02,Day0,1,C2_NJ_PHL,10040,Epinephrine Auto-Injector,EPI-2026-10563,Philadelphia-CHOP
+2026-03-02,Day0,1,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10564,Philadelphia-UPenn
+2026-03-02,Day0,1,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10565,Philadelphia-Jefferson
+2026-03-02,Day0,1,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10566,Philadelphia-CHOP
+2026-03-02,Day0,1,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10567,Philadelphia-CHOP
+2026-03-02,Day0,1,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10568,Philadelphia-UPenn
+2026-03-03,Day1,1,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00569,Boston-DanaFarber
+2026-03-03,Day1,1,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00570,Boston-Children
+2026-03-03,Day1,1,C1_I95_NJ_BOS,10035,Pembrolizumab (Keytruda),PBR-2026-00571,Boston-BWH
+2026-03-03,Day1,1,C1_I95_NJ_BOS,10021,Remdesivir 100mg,INS-2026-00011,Boston-DanaFarber
+2026-03-03,Day1,1,C1_I95_NJ_BOS,10021,Remdesivir 200mg,RMD-2026-00573,Boston-BWH
+2026-03-03,Day1,1,C1_I95_NJ_BOS,10071,Levalbuterol Inhaler,LEV-2026-00574,Boston-Children
+2026-03-03,Day1,1,C1_I95_NJ_BOS,10021,Remdesivir 100mg,RMD-2026-00575,Boston-DanaFarber
+2026-03-03,Day1,1,C1_I95_NJ_BOS,10023,Insulin Aspart,INS-2026-00576,Boston-MGH
+2026-03-03,Day1,1,C1_I95_NJ_BOS,10035,Pembrolizumab,PBR-2026-00577,Boston-DanaFarber
+2026-03-03,Day1,1,C1_I95_NJ_BOS,10021,Remdesivir 100 mg,RMD-2026-00578,Boston-DanaFarber
+2026-03-03,Day1,1,C2_NJ_PHL,10021,Remdesivir 100 mg,RMD-2026-10579,Philadelphia-UPenn
+2026-03-03,Day1,1,C2_NJ_PHL,10020,Remdesivir 100 mg,RMD-2026-10580,Philadelphia-Jefferson
+2026-03-03,Day1,1,C2_NJ_PHL,10071,Levalbuterol Inhaler,LEV-2026-10581,Philadelphia-CHOP
+2026-03-03,Day1,1,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10582,Philadelphia-CHOP
+2026-03-03,Day1,1,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10583,Philadelphia-Jefferson
+2026-03-03,Day1,1,C2_NJ_PHL,10070,Albuterol Inhaler 90mcg,ALB-2026-10584,Philadelphia-UPenn
+2026-03-03,Day1,1,C2_NJ_PHL,10021,Remdesivir 200mg,RMD-2026-10585,Philadelphia-UPenn
+2026-03-03,Day1,1,C2_NJ_PHL,10021,Remdesivir 100mg,RMD-2026-10586,Philadelphia-UPenn
+2026-03-03,Day1,1,C2_NJ_PHL,10023,Insulin Aspart,INS-2026-10587,Philadelphia-UPenn
+2026-03-03,Day1,1,C2_NJ_PHL,10050,Heparin Na,HEP-2026-10588,Philadelphia-Jefferson

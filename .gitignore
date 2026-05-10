@@ -11,9 +11,13 @@ chroma_db/
 *.sqlite
 *.db
 
-# macOS
+# generated outputs
+report.html
+report_*.html
+
+# editor / OS
 .DS_Store
+.vscode/
 
 # logs
 *.log
-.env

@@ -11,12 +11,14 @@ if __name__ == "__main__":
     app = build_graph()
 
     state = {
-        "pdf_path": "data/SeeWeeS Specialty Dispatch Playbook.pdf",
-        "csv_path": "data/Incoming_shipment_03_06.csv",
+        "pdf_path": "data/SeeWeeS Specialty distribution.pdf",
+        "csv_path": "data-for-enhancement/Incoming_shipments_14d_multi_corridor.csv",
     }
 
     final = app.invoke(state)
 
     report_html = final.get("report_html", "")
-    print("\n=== REPORT (first 2000 chars) ===\n")
-    print(report_html[:2000])
+    out_path = "report.html"
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(report_html)
+    print(f"\nReport saved to {out_path}")
