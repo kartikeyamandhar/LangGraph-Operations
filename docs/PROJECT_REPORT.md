@@ -291,6 +291,91 @@ We use three complementary validation layers:
 
 ---
 
+## 4.4 Validation & Realism Layer (extension beyond the rubric's five ideas)
+
+Office-hours feedback raised a fundamental question that the playbook penalty
+model alone cannot answer: *"How do you validate that the system's
+recommendations are actually fit for the real world, not just penalty-optimal?"*
+A plan can minimise the proxy penalty while being operationally unsafe — for
+example, dispatching the same driver on back-to-back 12-hour shifts.
+
+We addressed this with **three independent feedback loops**, each closing a
+different gap between the proxy and reality. The implementation is fully
+production-grade — none of the three loops is mocked or stubbed.
+
+### Loop 1 — Manager rating (fitness of the plan)
+**Gap closed:** Did the plan reflect operational judgement?
+**Implementation:**
+- Streamlit "Rate this plan" card after every run captures: 1-5 stars,
+  multi-select tags (Right-sized / Aggressive / Conservative / Risky /
+  Wasteful / Wrong corridor priority / Driver concern / Cold-chain concern),
+  free-text "what would you change?".
+- Persisted to `feedback/manager_ratings.csv` via `append_manager_rating`.
+- Last-10 ratings loaded by `node_load_workforce_state` into AppState as
+  `manager_feedback_recent`, then injected into `PLANNER_PROMPT` as
+  preference-signal context.
+- "Feedback" tab aggregates the trend (average rating, full table).
+
+### Loop 2 — Workforce reality (fitness of the allocation)
+**Gap closed:** Did the assignments respect human constraints the playbook
+doesn't capture (fatigue, certification, leave)?
+**Implementation:**
+- `feedback/driver_state.csv` — 8-driver roster encoding `certifications`,
+  `hours_last_24h`, `hours_last_7d`, `consecutive_days`, `fatigue_flag`,
+  `preferred_corridors`, `active`. Eligibility rules in `workforce_tools.py`:
+  - `active=false` → ineligible (medical leave)
+  - `hours_last_7d ≥ 40` → ineligible (DOT-style weekly cap)
+  - `consecutive_days ≥ 5` → ineligible (mandatory rest day)
+  - `fatigue_flag=true` → eligible but flagged for warning
+- `apply_workforce_to_pool` reduces `effective_resource_pool` by:
+  - Driver count → number of eligible drivers
+  - Cold-chain truck count → `min(physical_trucks, cold_chain_certified_eligible_drivers)` —
+    you cannot run a cold-chain truck without a certified driver.
+- `realism_check_allocation` runs after the LLM allocator + `_clip_resource_allocation`
+  and produces (warnings, violations):
+  - **Warning**: fatigue-flagged drivers in today's pool, all eligible
+    drivers committed (no slack), drivers excluded for hour-cap.
+  - **Violation**: more drivers/cold-trucks allocated than eligible —
+    surfaces if upstream pool reduction missed something.
+- The `REPORT_PROMPT` requires the report to render workforce warnings as a
+  yellow "Workforce notes" box in Section 5 and violations as a red banner
+  in Section 8.
+
+### Loop 3 — Outcome calibration (fitness of the predictions)
+**Gap closed:** Did the predicted penalty match what actually happened?
+**Implementation:**
+- `feedback/outcome_log.csv` — daily entries with `predicted_penalty`,
+  `actual_penalty`, `predicted_deferred`, `actual_deferred`,
+  `actual_tier1_late`, `actual_tier2_late`, `actual_cold_chain_breaches`,
+  `incident_notes`. Filled the morning after each run via Streamlit
+  "Outcomes" form (`append_outcome`).
+- `compute_calibration` computes: MAE, bias (`actual − predicted`),
+  cold-chain breach total, and a one-sentence `headline` like
+  *"Calibration: 6 historical runs · MAE 60 pts · system has under-predicted
+  actual penalty by 60 pts on average · 1 cold-chain breach recorded."*
+- Headline is injected into `OPS_ANALYSIS_PROMPT` so the OpsDataAgent
+  adjusts its risk language (e.g., adding *"historical calibration
+  suggests actual outcomes typically run ~60 pts above the predicted figure"*).
+- "Calibration" Streamlit tab visualises predicted-vs-actual scatter against
+  a perfect-calibration line, with hero metrics (MAE, bias direction).
+
+### Why this matters
+
+| Without the validation layer | With it |
+|---|---|
+| Penalty 0 = "all clear" | Penalty 0 + workforce warning "D-3 fatigue-flagged — avoid back-to-back" |
+| Plans optimise a proxy | Plans optimise a proxy, then are constrained by human limits, then are re-calibrated against past truth |
+| No way to validate reports | Every run feeds three datasets that converge into a measurable system precision |
+| LLM allocator can over-allocate cold trucks past certified drivers | `apply_workforce_to_pool` caps cold-chain capacity at certified-driver count automatically |
+
+This is the architecture that makes the system **continuously improve with
+each run** rather than being a one-shot LLM. After 30 days of operation, the
+manager rating average, the calibration MAE, and the workforce warning
+frequency together tell a complete story of system fitness — exactly the
+validation dataset the office-hours question was asking for.
+
+---
+
 ## 5. Limitations & Next Steps
 
 ### 5.1 Current limitations

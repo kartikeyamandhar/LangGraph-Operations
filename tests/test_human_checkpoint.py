@@ -22,7 +22,9 @@ from graph import node_human_checkpoint
 # ---------------------------------------------------------------------------
 def test_no_interrupt_when_all_corridors_safe(fake_weather_risk_safe):
     out = node_human_checkpoint({"weather_risk": fake_weather_risk_safe})
-    assert out == {"human_approved": True}
+    # The flag must distinguish 'auto-cleared' (required=False) from
+    # 'fired and approved' (required=True, approved=True).
+    assert out == {"human_approval_required": False, "human_approved": True}
 
 
 def test_no_interrupt_on_risk_score_two():
@@ -31,13 +33,13 @@ def test_no_interrupt_on_risk_score_two():
         "C2_NJ_PHL":     {"route_risk_score_0_3": 1},
     }
     out = node_human_checkpoint({"weather_risk": weather})
-    assert out == {"human_approved": True}
+    assert out == {"human_approval_required": False, "human_approved": True}
 
 
 def test_no_interrupt_on_empty_weather_risk():
     """Defensive: empty dict shouldn't crash or trigger an interrupt."""
     out = node_human_checkpoint({"weather_risk": {}})
-    assert out == {"human_approved": True}
+    assert out == {"human_approval_required": False, "human_approved": True}
 
 
 # ---------------------------------------------------------------------------
@@ -66,6 +68,7 @@ def test_interrupt_fires_when_any_corridor_at_score_three(monkeypatch):
     })
 
     assert out["human_approved"] is True
+    assert out["human_approval_required"] is True
     assert "message" in captured["payload"]
     assert "allocation_plan" in captured["payload"]
     assert captured["payload"]["weather_risk"] == weather

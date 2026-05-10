@@ -19,6 +19,8 @@ EXPECTED_NODES = {
     "pdf_context",
     "csv_analysis",
     "weather",
+    "load_workforce_state",
+    "scenario_apply",
     "planner",
     "audit",
     "allocator",
@@ -53,14 +55,35 @@ def test_parallel_fanout_from_start():
     assert "__start__" in sources_of_data_nodes
 
 
-def test_data_nodes_converge_on_planner():
+def test_data_nodes_converge_on_scenario_apply():
+    """All four data-gathering nodes (PDF, CSV, weather, workforce) must
+    converge on scenario_apply, not directly on the planner — that is what
+    makes the scenario+realism engine agentic."""
     app = build_graph()
     edges = app.get_graph().edges
     data_targets = {
         e.target for e in edges
-        if e.source in {"pdf_context", "csv_analysis", "weather"}
+        if e.source in {"pdf_context", "csv_analysis", "weather", "load_workforce_state"}
     }
-    assert data_targets == {"planner"}
+    assert data_targets == {"scenario_apply"}
+
+
+def test_workforce_node_runs_in_parallel_with_data_gathering():
+    """load_workforce_state must be reachable from START so it runs in parallel
+    with PDF/CSV/weather (not sequential)."""
+    app = build_graph()
+    edges = app.get_graph().edges
+    sources_to_workforce = {
+        e.source for e in edges if e.target == "load_workforce_state"
+    }
+    assert "__start__" in sources_to_workforce
+
+
+def test_scenario_apply_feeds_planner():
+    app = build_graph()
+    edges = app.get_graph().edges
+    pairs = {(e.source, e.target) for e in edges}
+    assert ("scenario_apply", "planner") in pairs
 
 
 def test_audit_has_conditional_edges_to_planner_and_allocator():

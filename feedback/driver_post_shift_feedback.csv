@@ -1,0 +1,11 @@
+timestamp,driver_id,run_id,corridor,shift_quality,tag,comment
+2026-05-03T19:14:00,D-1,run-20260503-am,C1_I95_NJ_BOS,5,Right-sized,Smooth run; cold-chain handling clean
+2026-05-03T19:42:00,D-2,run-20260503-am,C1_I95_NJ_BOS,4,Right-sized,Buffer was generous; finished early
+2026-05-03T20:05:00,D-4,run-20260503-am,C2_NJ_PHL,3,Aggressive,Tight schedule; would prefer 1 more truck
+2026-05-04T18:30:00,D-1,run-20260504-am,C1_I95_NJ_BOS,4,Right-sized,Cold chain compliance OK
+2026-05-04T19:11:00,D-3,run-20260504-am,C2_NJ_PHL,2,Risky,Felt rushed; storm was worse than buffered
+2026-05-05T17:55:00,D-6,run-20260505-am,C2_NJ_PHL,5,Right-sized,Easy day; demand low
+2026-05-06T20:08:00,D-2,run-20260506-am,C1_I95_NJ_BOS,3,Aggressive,Driving close to limit; please watch hours
+2026-05-07T18:42:00,D-4,run-20260507-am,C1_I95_NJ_BOS,4,Right-sized,Standard run
+2026-05-08T19:35:00,D-1,run-20260508-am,C1_I95_NJ_BOS,5,Right-sized,Best routing this week
+2026-05-08T20:01:00,D-5,run-20260508-am,C2_NJ_PHL,3,Risky,Wind on I-95 underestimated; arrived 35 min late

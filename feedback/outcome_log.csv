@@ -1,0 +1,7 @@
+timestamp,run_id,scenario,predicted_penalty,actual_penalty,predicted_deferred,actual_deferred,actual_tier1_late,actual_tier2_late,actual_cold_chain_breaches,incident_notes
+2026-05-04T08:00:00,run-20260503-am,baseline,0,40,0,1,0,1,0,One Tier-2 unit arrived 25 min late on C1 due to traffic
+2026-05-05T08:00:00,run-20260504-am,Cold-chain truck breakdown,1040,1080,14,15,8,7,0,One additional Tier-2 unit deferred when backup driver D-3 timed out
+2026-05-06T08:00:00,run-20260505-am,baseline,0,0,0,0,0,0,0,Smooth run
+2026-05-07T08:00:00,run-20260506-am,20% demand spike on C2,560,640,10,12,2,10,1,One cold-chain breach when backup truck temperature drifted; immediate corrective action taken
+2026-05-08T08:00:00,run-20260507-am,baseline,0,0,0,0,0,0,0,Clean
+2026-05-09T08:00:00,run-20260508-am,Severe storm on C1,2200,2400,22,24,8,16,0,Storm was worse than forecast; 2 additional Tier-2 deferrals

@@ -1,0 +1,9 @@
+driver_id,name,certifications,hours_last_24h,hours_last_7d,consecutive_days,fatigue_flag,preferred_corridors,active,notes
+D-1,Alice Chen,cold_chain;cdl;hazmat,8,28,2,false,C1_I95_NJ_BOS;C2_NJ_PHL,true,Senior cold-chain lead
+D-2,Bob Martinez,cdl,10,35,3,false,C1_I95_NJ_BOS,true,Strong on Boston route
+D-3,Carla Singh,cold_chain;cdl,11,38,4,true,C2_NJ_PHL,true,Approaching weekly limit; manual review recommended
+D-4,David Rao,cold_chain;cdl,6,22,2,false,C1_I95_NJ_BOS,true,Reliable on long hauls
+D-5,Eva Park,cdl,9,31,3,false,C2_NJ_PHL,true,Standard routes only
+D-6,Frank Lee,cdl,7,18,1,false,C1_I95_NJ_BOS;C2_NJ_PHL,true,Flexible; can swap corridors
+D-7,Grace Hall,cold_chain;cdl,0,0,0,false,C1_I95_NJ_BOS,false,On medical leave through 2026-05-15
+D-8,Henry Wu,cdl,12,42,5,true,C2_NJ_PHL,true,OVER 40h/7d limit — must rest

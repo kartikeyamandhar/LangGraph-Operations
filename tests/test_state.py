@@ -18,6 +18,10 @@ REQUIRED_KEYS = {
     # Step 1 outputs (parallel data gathering)
     "business_context", "csv_summary", "csv_kpis", "anomalies_md",
     "ops_insights", "corridor_kpis", "trend_summary", "weather_risk",
+    # Workforce + feedback layer
+    "workforce_state", "manager_feedback_recent", "calibration_history",
+    # Scenario apply
+    "scenario_overrides", "effective_resource_pool", "scenario_diff",
     # Planner
     "dispatch_plan", "plan_structured",
     # Audit loop
@@ -25,7 +29,7 @@ REQUIRED_KEYS = {
     # Allocation
     "allocation_plan",
     # Human checkpoint
-    "human_approved",
+    "human_approval_required", "human_approved",
     # Final output
     "report_html",
 }
@@ -60,9 +64,9 @@ def test_buffer_policy_matches_playbook():
 
 
 def test_resource_pool_has_both_planning_days():
-    assert "Day0" in graph_mod.RESOURCE_POOL
-    assert "Day1" in graph_mod.RESOURCE_POOL
-    for day, pool in graph_mod.RESOURCE_POOL.items():
+    assert "Day0" in graph_mod.BASE_RESOURCE_POOL
+    assert "Day1" in graph_mod.BASE_RESOURCE_POOL
+    for day, pool in graph_mod.BASE_RESOURCE_POOL.items():
         assert pool["truck_temp_controlled"] >= 1
         assert pool["truck_standard"] >= 1
         assert pool["driver"] >= 1

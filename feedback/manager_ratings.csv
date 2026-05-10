@@ -1,0 +1,7 @@
+timestamp,run_id,manager_id,scenario,star_rating,tags,comment
+2026-05-03T20:00:00,run-20260503-am,M-Director,baseline,4,Right-sized,Plan matched what I would have done; over-buffered C2 slightly.
+2026-05-04T20:15:00,run-20260504-am,M-Director,Cold-chain truck breakdown,5,Right-sized;Conservative,Loved the explicit Tier-1 protection narrative; clipping note was crucial.
+2026-05-05T19:30:00,run-20260505-am,M-Director,baseline,3,Wasteful,Allocated too many cold-chain trucks for the demand level; left capacity idle.
+2026-05-06T20:45:00,run-20260506-am,M-Director,20% demand spike on C2,4,Right-sized,Allocator handled the spike well but driver assignment to D-2 was risky given his hours.
+2026-05-07T19:50:00,run-20260507-am,M-Director,baseline,5,Right-sized,Clean run; trend chart helped me see we're trending down on C2.
+2026-05-08T20:30:00,run-20260508-am,M-Director,Severe storm on C1,4,Conservative,Approved the escalation; I'd have wanted clearer alternate-route options.

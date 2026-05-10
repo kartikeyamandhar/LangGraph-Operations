@@ -14,38 +14,63 @@ Built for the **UCLA MSBA AI Agents Project Challenge 2026**.
 ## What it does
 
 ```
-┌─────────────────────────── PARALLEL DATA GATHERING ──────────────────────────┐
-│  pdf_context  ─┐         csv_analysis  ─┐         weather  ─┐                │
-│   (RAG over    │          (per-corridor │          (5 + 4   │                │
-│    playbook)   │           KPIs, item    │          waypoints│                │
-│                │           reconciliation│          via Open │                │
-│                │           anomaly check)│          -Meteo)  │                │
-└────────────────┴─────────────────────────┴───────────────────┘                │
-                                  ↓
-                              planner ──→ audit ──┬─ FAIL → planner (loop)
-                                                  │
-                                                  └─ PASS → allocator
-                                                              ↓
-                                                       human_checkpoint
-                                                       (interrupt if any
-                                                        corridor risk = 3)
-                                                              ↓
-                                                            report
-                                                              ↓
-                                                            email (optional)
+┌─────────────────────── PARALLEL DATA GATHERING ────────────────────────────┐
+│  pdf_context        csv_analysis       weather       load_workforce_state  │
+│   (RAG over         (per-corridor      (5 + 4        (driver eligibility,  │
+│    playbook)         KPIs + item        waypoints     certifications,      │
+│                      reconciliation)    Open-Meteo)   fatigue, calibration)│
+└─────────┬─────────────────┬────────────────┬─────────────────┬─────────────┘
+          └─────────────────┴────────────────┴─────────────────┘
+                                ↓
+                        scenario_apply  ←  ScenarioParserAgent extracts
+                        ─ resource_overrides   structured overrides from the
+                        ─ demand_multipliers   user's free-text scenario, then
+                        ─ weather_overrides    overlays workforce reality
+                        ─ corridor_closures    onto the effective_resource_pool
+                                ↓
+                        planner ⟲ audit (rule + soft check + vague-phrase guard)
+                                ↓ PASS (or force-pass after 3 retries)
+                        allocator (LLM proposes → Python clips → realism check)
+                                ↓
+                        human_checkpoint  (interrupt() if any corridor risk = 3)
+                                ↓
+                        report (deterministic numbers; truthful banners)
+                                ↓
+                        email (optional)
+```
+
+Three independent feedback loops close the gap between proxy penalty and
+real-world fitness:
+
+```
+┌─ LOOP 1: Manager rating ─────────────────────────────────────────────────┐
+│  After each run → "Rate this plan" card → manager_ratings.csv            │
+│  → injected into PlannerAgent prompt next run as preference signal       │
+└──────────────────────────────────────────────────────────────────────────┘
+┌─ LOOP 2: Workforce reality ──────────────────────────────────────────────┐
+│  driver_state.csv + driver_post_shift_feedback.csv                        │
+│  → reduces effective_resource_pool (fatigue, certs, leave)                │
+│  → realism_check_allocation produces warnings + violations                │
+└──────────────────────────────────────────────────────────────────────────┘
+┌─ LOOP 3: Outcome calibration ────────────────────────────────────────────┐
+│  outcome_log.csv (predicted vs actual penalties / breaches)               │
+│  → compute_calibration → injected into OpsDataAgent prompt                │
+│  → Calibration tab visualises miscalibration over time                    │
+└──────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Enhancements implemented (all 5)
+## Enhancements implemented (all 5 + a validation layer)
 
 | # | Idea | Where it lives |
 |---|---|---|
-| 1 | **Self-Correction & Audit Loop** | `node_audit` + `_route_after_audit` cyclic edge in `src/graph.py`; Python hard-rule checks (buffer policy, escalation) followed by `AuditAgent` GPT soft-check. Max 3 retries before force-pass with violation flag. |
-| 2 | **What-if Scenario Simulation** | `scenario` field on `AppState`; `stress_test_scenarios.py` runs six pre-built disruptions (demand spike, driver shortage, cold-chain truck breakdown, I-95 closure, dual disruption, baseline). |
+| 1 | **Self-Correction & Audit Loop** | `node_audit` + `_route_after_audit` cyclic edge in `src/graph.py`; Python hard-rule checks (buffer policy, escalation, vague-phrase guard) followed by `AuditAgent` GPT soft-check. Max 3 retries before force-pass with violation flag. |
+| 2 | **What-if Scenario Simulation (truly agentic)** | `ScenarioParserAgent` extracts structured overrides from free-text — `resource_overrides`, `demand_multipliers`, `weather_overrides`, `corridor_closures`, `transit_delay_hours`. `node_scenario_apply` applies them to `effective_resource_pool`, `corridor_kpis`, and `weather_risk` so downstream nodes execute the disruption, not narrate it. |
 | 3 | **Deep-Dive Trend & Item Master Reconciliation** | `_reconcile_row` + `ReconciliationLog` in `src/tools/csv_tools.py` map legacy IDs and name aliases to a canonical item master; `_compute_corridor_kpis` produces per-corridor / per-day Tier-1/Tier-2 mix, cold-chain demand, and 7-day trend. |
-| 4 | **Human-in-the-Loop Workflow** | `node_human_checkpoint` calls `langgraph.types.interrupt(...)` when `max(route_risk_score) >= 3`. CLI runs auto-approve via `Command(resume="YES")`; the Streamlit UI surfaces an Approve / Reject button. |
-| 5 | **Multi-Region Resource Planning** | `node_allocator` + `AllocatorAgent` with deterministic post-corrections: `_clip_cold_chain_allocation` clips over-allocation to the daily cap, `_recompute_penalty` rebuilds the penalty score from truck-supply × demand instead of trusting the LLM. |
+| 4 | **Human-in-the-Loop Workflow** | `node_human_checkpoint` calls `langgraph.types.interrupt(...)` when `max(route_risk_score) >= 3`. State separately tracks `human_approval_required` (true only when interrupt fires) and `human_approved` so the report can't fabricate approval reasons. |
+| 5 | **Multi-Region Resource Planning** | `node_allocator` + `AllocatorAgent` with deterministic post-corrections: `_clip_resource_allocation` clips ALL scarce resources (cold-chain trucks, standard trucks, drivers) to the per-day cap; `_recompute_penalty` rebuilds the penalty score AND a structured `deferral_breakdown` per (corridor, day, tier) that the report agent must quote verbatim. |
+| 6 | **Validation / Realism Layer** *(new)* | Three feedback loops: `feedback/driver_state.csv` reduces `effective_resource_pool` by fatigue / certification / leave (`apply_workforce_to_pool`); `realism_check_allocation` raises warnings (fatigue flags, no-slack situations) and violations (cold-chain trucks without certified drivers); `feedback/manager_ratings.csv` is loaded as recent-feedback context for the planner; `feedback/outcome_log.csv` produces a calibration headline injected into the OpsDataAgent prompt. |
 
 ---
 
@@ -72,8 +97,13 @@ Built for the **UCLA MSBA AI Agents Project Challenge 2026**.
 ├── data/                       # Authoritative inputs (PDF playbook + sample)
 ├── data-for-enhancement/       # Multi-corridor CSV, resource constraints,
 │                               # synthetic CSVs, markdown playbook source
+├── feedback/                   # Validation/realism layer (workforce + ratings + outcomes)
+│   ├── driver_state.csv         # Driver eligibility (cert, hours, fatigue, leave)
+│   ├── driver_post_shift_feedback.csv  # Driver shift-quality reports
+│   ├── manager_ratings.csv      # Manager 1-5 stars + tags + comments per run
+│   └── outcome_log.csv          # Predicted vs actual outcomes per run
 ├── docs/                       # Technical & business documentation
-├── tests/                      # pytest suite (mocked LLMs)
+├── tests/                      # pytest suite (mocked LLMs, 134 tests)
 ├── chroma_db/                  # Local vector store (gitignored)
 │
 ├── .env.example                # Environment template
