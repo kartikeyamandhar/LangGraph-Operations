@@ -5,3 +5,5 @@ timestamp,run_id,manager_id,scenario,star_rating,tags,comment
 2026-05-06T20:45:00,run-20260506-am,M-Director,20% demand spike on C2,4,Right-sized,Allocator handled the spike well but driver assignment to D-2 was risky given his hours.
 2026-05-07T19:50:00,run-20260507-am,M-Director,baseline,5,Right-sized,Clean run; trend chart helped me see we're trending down on C2.
 2026-05-08T20:30:00,run-20260508-am,M-Director,Severe storm on C1,4,Conservative,Approved the escalation; I'd have wanted clearer alternate-route options.
+2026-05-10T21:56:35,839c607a-af74-42cb-abb5-9993580560cb,M-Director,"Severe storm on C1"" OR type your own: ""Driver Alice Chen (D-1) is sick tomorrow — workforce only has 2 cold-chain certified drivers eligible.",4,Right-sized,The report was fine
+2026-05-17T03:20:46,14ad3a53-b185-4882-810a-2efda2654087,M-Director,We have only one driver for cold trucks now,3,Right-sized,The driver remaining did not like this plan

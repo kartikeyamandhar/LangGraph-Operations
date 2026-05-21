@@ -866,8 +866,20 @@ with tab_report:
     if st.session_state.run_complete and st.session_state.final_state:
         html = st.session_state.final_state.get("report_html", "")
         if html:
-            import streamlit.components.v1 as components
-            components.html(html, height=900, scrolling=True)
+            # st.iframe (non-deprecated) renders a local HTML file in a
+            # sandboxed, scrollable frame with full CSS isolation. We persist
+            # the report to disk first, then point the iframe at it.
+            from pathlib import Path
+            report_file = Path("report.html")
+            report_file.write_text(html, encoding="utf-8")
+            st.iframe(report_file, height=900)
+            st.download_button(
+                "⬇  Download report.html",
+                data=html,
+                file_name="seewees_dispatch_report.html",
+                mime="text/html",
+                width="stretch",
+            )
         else:
             st.warning("Report not yet generated.")
     else:

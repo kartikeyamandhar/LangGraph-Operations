@@ -439,6 +439,27 @@ def realism_check_allocation(
                 f"{workforce.cold_chain_eligible_count} cold-chain certified drivers eligible."
             )
 
+        # Per-corridor consistency: a corridor with trucks but zero drivers
+        # is operationally infeasible — the trucks cannot move themselves.
+        for corridor_id, v in day_alloc.items():
+            if not isinstance(v, dict):
+                continue
+            trucks_on_corridor = (
+                int(v.get("truck_temp_controlled", 0) or 0)
+                + int(v.get("truck_standard", 0) or 0)
+            )
+            drivers_on_corridor = int(v.get("driver", 0) or 0)
+            if trucks_on_corridor > 0 and drivers_on_corridor < 1:
+                violations.append(
+                    f"{day} {corridor_id}: {trucks_on_corridor} truck(s) allocated "
+                    f"with 0 drivers — trucks cannot dispatch without a driver."
+                )
+            elif trucks_on_corridor > 0 and drivers_on_corridor < trucks_on_corridor:
+                warnings.append(
+                    f"{day} {corridor_id}: {trucks_on_corridor} trucks share "
+                    f"{drivers_on_corridor} driver(s) — confirm driver swap plan."
+                )
+
     # 2. Fatigue-flagged drivers in the eligible pool
     if workforce.fatigue_flagged:
         flagged_ids = ", ".join(d.driver_id for d in workforce.fatigue_flagged)
