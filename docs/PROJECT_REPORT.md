@@ -1,7 +1,6 @@
 # SeeWeeS Multi-Agent Dispatch Intelligence — Project Report
 
-**UCLA MSBA AI Agents Project Challenge 2026**
-**Version 1.0** · Submission deadline: Sunday May 10 2026 12:00 PM PST
+**Version 1.0** · Technical & Business Documentation
 
 ---
 
@@ -33,10 +32,11 @@ The pain manifests as **late Tier-1 shipments**, **cold-chain breaches**,
 and **executive distrust** of the automated report.
 
 ### Solution
-We extended the linear LangGraph prototype into a 9-node multi-agent system
+We extended the linear LangGraph prototype into an 11-node multi-agent system
 that:
 
-- runs three independent data-gathering steps in **parallel**,
+- runs four independent data-gathering steps in **parallel** (playbook RAG,
+  CSV reconciliation, weather, and workforce eligibility),
 - self-corrects via a **cyclic audit loop** (Python hard rules + LLM soft
   checks, max 3 retries),
 - allocates scarce resources with a **deterministic penalty model** that
@@ -65,6 +65,39 @@ leadership has either passed every rule check or carries a clear
 | Planning horizon | Playbook §5 | 48 hours (Day0 + Day1) |
 | Weather forecast horizon | Open-Meteo | 2 forecast days |
 
+The seven logistics constraints form the physical backbone of every
+allocation decision the system makes. Each is treated as a hard ceiling that
+no LLM output is permitted to exceed.
+
+- **Truck capacity — 10 units per truck (Playbook §6).** Each truck carries up
+  to 10 units, forming the basis for all supply, allocation, and penalty
+  calculations. Supply is computed as `trucks × 10`; excess demand is deferred
+  and penalised. Because this value is centralised in `src/graph.py`, a
+  fleet-capacity change requires updating a single constant.
+- **Daily packing buffer — +10 % (Playbook §6).** Demand is inflated by 10 %
+  before truck allocation to account for repacking, damaged goods, and
+  last-minute changes: `required_trucks = ceil(demand × 1.10 / 10)`. This
+  buffer is always active and stacks with weather-risk buffers.
+- **Driver pool — 6 / day (`Resource_availability_48h.csv`).** The nominal pool
+  is six, but the *effective* pool is recalculated daily from eligibility rules
+  (hour limits, mandatory rest, fatigue). Cold-chain trucks additionally
+  require certified drivers, making drivers a binding operational constraint.
+- **Standard trucks — 4 / day.** Available for non-cold-chain shipments only;
+  they cannot carry cold-chain product (that would trigger the +80-pt breach
+  penalty). Allocation caps are enforced deterministically after the LLM
+  proposes.
+- **Cold-chain trucks — 2 / day.** Only two refrigerated trucks limit cold-chain
+  capacity to 20 units/day. Excess cold-chain demand is deferred, never moved
+  on standard trucks. Effective capacity is further constrained by the number
+  of certified eligible drivers.
+- **Planning horizon — 48 h / Day0 + Day1 (Playbook §5).** Covers current-day
+  shipments and next-day staging, enabling limited demand smoothing within the
+  reliable forecast range.
+- **Weather forecast horizon — 2 days (Open-Meteo).** Daily aggregates for
+  precipitation, wind gusts, and minimum temperature across 4–5 waypoints per
+  corridor; the corridor takes the **maximum** waypoint risk so a single
+  hazardous segment is never averaged away.
+
 ### 2.2 Risk thresholds (Playbook §5.2)
 | Risk Score | Trigger | Required buffer | Escalation |
 |---|---|---|---|
@@ -78,6 +111,18 @@ Flags: `precipitation_sum ≥ 15 mm/day`, `wind_gusts_10m_max ≥ 45 km/h`,
 corridor's 4–5 waypoints; route risk = max corridor risk across the 48-hour
 horizon.
 
+The risk score is the count of flags set (0–3). Taking the **maximum** across
+waypoints — rather than the mean — is a deliberate conservative choice: a
+single dangerous waypoint is enough to impose the higher buffer, because a
+refrigerated truck cannot bypass a flooded or iced segment mid-route. The
+buffer policy is applied multiplicatively on top of the §6 packing buffer, so
+at risk score 3 the total capacity overhead is `1.10 × 1.40 = 1.54×` base
+demand — deliberately stringent given a Tier-1 SLA miss costs 100 pts/unit.
+Escalation at score 3 is a **hard rule in the audit's deterministic Python
+check**, not a soft preference: the planner cannot ship a compliant plan with
+`escalation_triggered = false` when route risk is 3 — the audit rejects it and
+loops back.
+
 ### 2.3 Penalty model (Playbook §7)
 | Event | Penalty (pts/unit) |
 |---|---|
@@ -89,21 +134,68 @@ horizon.
 Tier-1 SKUs in the item master: Antiviral, Oncology Biologic, Clinical
 Trial. All Tier-1 SKUs in our domain are also cold-chain.
 
+The penalty model is the system's primary objective function — every
+allocation decision flows toward minimising the total penalty score, and the
+three penalty types encode a deliberate clinical-priority hierarchy.
+
+- **Tier-1 SLA violation (100 pts/unit)** covers life-critical SKUs, all of
+  which are also cold-chain. A deferred Tier-1 unit therefore almost always
+  stacks both penalties — **180 pts** (100 SLA + 80 cold-chain), nearly 5× a
+  standard Tier-2 delay. This is why `_recompute_penalty` fulfils demand in
+  strict priority order: Tier-1 cold-chain → Tier-2 cold-chain → standard.
+- **Tier-2 SLA violation (40 pts/unit)** covers non-life-critical specialty
+  drugs. The 2.5× gap to Tier-1 ensures the allocator never sacrifices Tier-1
+  coverage to protect Tier-2 volume.
+- **Cold-chain breach (+80 pts/unit, stacking)** fires whenever a cold-chain
+  unit rides a standard truck. Because the breach alone exceeds a Tier-2 SLA
+  miss, the system always prefers **deferral over substitution** — exhausted
+  cold-chain supply means units wait, not that they move on the wrong vehicle.
+
+The weights are taken from the playbook, not learned. The Outcome Calibration
+loop (§4.4, Loop 3) tracks predicted-vs-actual penalty over time; persistent
+bias in either direction would signal the weights need revision.
+
 ### 2.4 Data assumptions
-- The 14-day shipment CSV (`Incoming_shipments_14d_multi_corridor.csv`)
-  carries all four DQ patterns (DQ-01 missing UID, DQ-02 unknown item_id,
-  DQ-03 name mismatch, DQ-04 duplicate UID) at realistic rates (~5 % of
-  rows).
-- Weather data is real-time from Open-Meteo (no API key required, no rate
-  limit at our volume).
-- LLM calls use `gpt-4.1-mini` at temperature 0.2 — we trade some creativity
-  for deterministic structured output that the audit step can parse.
-- The PDF playbook is the single source of truth for business rules; the
-  agents are **grounded** in PDF excerpts via RAG so they cannot invent
-  rules that aren't in the document.
+
+**2.4.1 Data availability.**
+The 14-day multi-corridor CSV (`Incoming_shipments_14d_multi_corridor.csv`)
+was designed to contain all four real-world DQ failure modes at realistic
+rates (~5 % of rows): DQ-01 (missing `unique_item_id`), DQ-02 (unknown
+`item_id`), DQ-03 (name mismatch — legacy product name instead of canonical),
+and DQ-04 (duplicate `unique_item_id`). In operational logistics feeds, 3–8 %
+DQ exclusion rates are common due to upstream ERP drift and manual entry. The
+reconciliation layer (`_reconcile_row` in `src/tools/csv_tools.py`) maps DQ-03
+rows to their canonical item via an alias dictionary, recovering demand a
+simpler filter would silently drop; DQ-01 and DQ-04 rows are quarantined and
+surfaced in the report's DQ section. Weather is fetched live from Open-Meteo
+(no API key, no rate limiting at 5–9 waypoint queries/run) using daily
+aggregates only, since the playbook thresholds are stated in daily terms.
+Resource availability is read from `Resource_availability_48h.csv` and
+immediately reduced by the Workforce Reality loop (§4.4, Loop 2) before any
+allocation, so the allocator never sees an inflated supply figure.
+
+**2.4.2 Business rules — the PDF playbook is the single source of truth.**
+All rule extraction (buffers, escalation, penalties, SLA tiers, capacity) is
+grounded exclusively in RAG retrievals from the playbook PDF. Agents are
+explicitly forbidden from applying rules not present in the retrieved
+excerpts — the ContextAgent is instructed to be "precise and exhaustive" about
+what the snippets contain, and the ReportAgent is forbidden from mentioning
+metrics absent from `weather_risk`. The practical implication is that the
+system's compliance is only as complete as the playbook itself; rules that
+exist informally but are absent from the PDF will not be applied. This is a
+deliberate scope boundary — grounding in a vetted document beats untested
+background knowledge.
+
+**2.4.3 LLM configuration.**
+All six agents use `gpt-4.1-mini` at temperature 0.2. The reduced temperature
+increases the consistency of the PlannerAgent's structured JSON (which the
+audit's Python parser must process) at the cost of some prose creativity. The
+audit loop compensates: malformed or non-compliant JSON returns a specific
+failure reason and the planner is re-prompted — a correction signal that
+temperature reduction alone cannot guarantee.
 
 ### 2.5 Synthetic data we generated
-Original challenge data did not include enough variation to stress-test the
+The original dataset did not include enough variation to stress-test the
 allocator. We added (`generate_synthetic_data.py`):
 - **synthetic_baseline.csv** — control group, no anomalies
 - **synthetic_volume_spike.csv** — sudden 2× volume burst on Day0
@@ -120,35 +212,51 @@ allocator. We added (`generate_synthetic_data.py`):
 
 ### 3.1 Architectural enhancements
 
-The original prototype was a 6-node linear graph. We expanded it to a
-**9-node graph with parallel fan-out, a conditional cyclic edge, and an
-interrupt-based human checkpoint**:
+The original prototype was a 6-node linear graph. We expanded it to an
+**11-node graph with a 4-way parallel fan-out, an agentic scenario/​workforce
+overlay, a conditional cyclic edge, and an interrupt-based human checkpoint**:
 
 ```
-START ─┬─→ pdf_context  ────┐
-       ├─→ csv_analysis ────┼─→ planner ─→ audit ┐
-       └─→ weather     ─────┘                    │
-                                ┌──────[ FAIL ]──┘
-                                ↓               
-                          (back to planner)      
-                                ↓               
-                     [ PASS ] → allocator ─→ human_checkpoint
-                                                ↓ (interrupt if risk=3)
+START ─┬─→ pdf_context          ──┐
+       ├─→ csv_analysis          ──┤
+       ├─→ weather               ──┼─→ scenario_apply ─→ planner ─→ audit ┐
+       └─→ load_workforce_state  ──┘                        ↑             │
+                                                    ┌──[ FAIL · feedback ]┘
+                                                    ↓
+                                              (back to planner)
+                                                    ↓
+                                  [ PASS / force-pass ] → allocator
+                                              (LLM → clip → recompute → realism)
+                                                    ↓
+                                              human_checkpoint
+                                                    ↓ (interrupt if any risk = 3)
                                               report ─→ email ─→ END
 ```
 
+The 11 nodes are: `pdf_context`, `csv_analysis`, `weather`,
+`load_workforce_state` (four parallel data-gatherers); `scenario_apply` (the
+agentic what-if engine); `planner`, `audit` (the self-correction cycle);
+`allocator`, `human_checkpoint`, `report`, `email`.
+
 Concrete additions to `src/graph.py`:
 
-1. **Parallel fan-out** — `add_edge(START, "pdf_context")`,
-   `add_edge(START, "csv_analysis")`, `add_edge(START, "weather")` lets
-   LangGraph's Pregel runner execute all three independent data-gathering
-   nodes concurrently. The planner is reached only after all three converge.
+1. **Parallel fan-out (4-way)** — `add_edge(START, …)` for `pdf_context`,
+   `csv_analysis`, `weather`, and `load_workforce_state` lets LangGraph's
+   Pregel runner execute all four independent data-gathering nodes
+   concurrently. They converge on `scenario_apply` before the planner.
 
-2. **Conditional cyclic edge** — `_route_after_audit(state)` returns either
+2. **Agentic scenario/​workforce overlay** — `node_scenario_apply` runs the
+   `ScenarioParserAgent` to turn free-text disruptions into structured
+   overrides (resource caps, demand multipliers, weather/closure, transit
+   delay), then layers workforce reality (fatigue/cert/leave) on top — all
+   written into `effective_resource_pool`, `corridor_kpis`, and `weather_risk`
+   so every downstream node executes the disrupted reality, not a narration.
+
+3. **Conditional cyclic edge** — `_route_after_audit(state)` returns either
    `"planner"` (FAIL) or `"allocator"` (PASS); `add_conditional_edges`
    routes accordingly. This is the only cycle in the graph.
 
-3. **Interrupt-based checkpoint** — `node_human_checkpoint` calls
+4. **Interrupt-based checkpoint** — `node_human_checkpoint` calls
    `langgraph.types.interrupt(...)` with the allocation plan and weather
    risk; the call suspends the graph until the caller resumes with
    `Command(resume=<decision>)`. The Streamlit UI binds this to an
@@ -427,10 +535,26 @@ validation dataset the office-hours question was asking for.
 - **No A/B comparison of plans.** When the audit loop fires, we keep
   only the latest plan. Storing all attempts would let leadership see
   *what changed* across iterations.
+- **Weather risk is a route-level proxy.** The system scores corridors from
+  Open-Meteo variables and waypoints, but does not yet include live traffic,
+  road closures, or calibrated ETA predictions.
+- **Scenario simulation is rule-bounded.** The ScenarioParserAgent handles
+  common disruptions (demand spikes, driver shortages, cold-chain breakdowns,
+  closures), but complex cascading disruptions are still simplified.
+- **Real-world validation is limited.** Unit and stress tests verify correct
+  behaviour, but the project does not yet include large-scale historical
+  backtesting against actual late deliveries, cold-chain breaches, or manager
+  decisions.
 
 ### 5.2 If we had more time / production data access
 
-1. **Hook the email node up to a real ops mailbox** — currently the
+1. **Make the framework reusable across business cases** — separate the
+   project-specific inputs (playbook, corridor catalog, item master, resource
+   pool, KPI definitions) from the general multi-agent framework (audit loop,
+   scenario parser, allocator, human checkpoint, report agent). Another
+   business case could then reuse the architecture by swapping the operational
+   rules and data, instead of rebuilding the agent workflow.
+2. **Hook the email node up to a real ops mailbox** — currently the
    pipeline writes `report.html` to disk and optionally emails it.
    The next step is signed sender domains (DKIM / SPF) and an
    unsubscribe / digest preference per recipient.
@@ -453,6 +577,14 @@ validation dataset the office-hours question was asking for.
    SLA misses but ignores transport cost. A two-objective optimiser
    (penalty + cost) would give leadership a Pareto frontier to choose
    from.
+7. **Historical backtesting and calibration** — with real delivery outcomes
+   we would replay past dispatch days and compare predicted penalties,
+   deferred units, and SLA risks against what actually happened, tuning the
+   penalty weights with real evidence rather than playbook defaults.
+8. **Richer operational data integration** — hospital priority levels,
+   patient-critical orders, inventory levels, driver schedules, and loading-
+   dock constraints would make recommendations more realistic and more
+   directly actionable for dispatch managers.
 
 ---
 
