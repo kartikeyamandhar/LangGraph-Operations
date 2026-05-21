@@ -174,18 +174,26 @@ with explicit data contracts and refusal clauses.
 LLMs occasionally produce numerically incorrect allocations (e.g. allocating
 3 cold-chain trucks per corridor when the daily pool has 2 trucks total).
 Trusting the LLM here would cascade a wrong penalty score into the
-executive report. We therefore wrap the AllocatorAgent's output in two
-deterministic correction steps in `src/graph.py`:
+executive report. We therefore wrap the AllocatorAgent's output in three
+deterministic correction steps in `src/graph.py` and `src/tools/workforce_tools.py`:
 
-- **`_clip_cold_chain_allocation`** (lines 253-296) — greedy reduction:
-  while the per-day cold-chain truck total exceeds `RESOURCE_POOL`, take
-  one truck from the highest-allocated corridor. Logs the clip count.
+- **`_clip_resource_allocation`** — greedy reduction across EVERY scarce
+  resource: while the per-day total of cold-chain trucks, standard trucks,
+  or drivers exceeds the scenario-and-workforce-adjusted `effective_resource_pool`,
+  take one unit from the highest-allocated corridor. Logs each clip.
 
-- **`_recompute_penalty`** (lines 305-380) — replaces the LLM's
-  `total_penalty_score` and `deferred_units` with a deterministic
-  computation that fulfils Tier 1 cold-chain first, then Tier 2 cold-chain,
-  then standard demand, against truck supply × capacity. Adds a transparent
-  rationale showing both the new and the LLM-reported numbers.
+- **`_recompute_penalty`** — replaces the LLM's `total_penalty_score` and
+  `deferred_units` with a deterministic computation that fulfils Tier 1
+  cold-chain first, then Tier 2 cold-chain, then standard demand, against
+  truck supply × capacity. Emits a per-(corridor, day, tier)
+  `deferral_breakdown` and a `deferral_summary.headline` that the report
+  agent must quote verbatim — so the report cannot claim "Tier 1 protected"
+  when it isn't.
+
+- **`realism_check_allocation`** — feasibility pass against the workforce:
+  flags violations (a corridor with trucks but zero drivers; cold-chain
+  trucks exceeding certified-driver count) and warnings (fatigue-flagged
+  drivers committed; no driver slack for emergencies).
 
 This pattern — **LLM proposes, Python verifies, Python corrects** — is the
 core of the system's reliability story.
@@ -232,37 +240,48 @@ A single run on the 14-day multi-corridor CSV plus live weather:
 Report saved to report.html
 ```
 
-Behavioural observations:
+Behavioural observations (actual reconciliation log from this dataset):
 - **C1 risk = 1** drove a 10 % buffer per the policy table; the planner
   applied this correctly on the first attempt.
-- **DQ-01 / DQ-04 reconciliation** excluded N rows from the planning
-  window across both corridors; these were surfaced in `anomalies_md` and
-  in the report's DQ section so leadership sees the demand they cannot
-  fulfil.
-- **Allocator over-allocated cold-chain trucks** (LLM proposed 3 cold-chain
-  trucks for C1-Day0 when the cap is 2/day); `_clip_cold_chain_allocation`
-  reduced it to 2 and logged the rationale. `_recompute_penalty` rebuilt
-  the score from supply × demand. Both corrections are visible in the
-  final HTML report.
+- **Item-master reconciliation** processed the 14-day feed and produced:
+  21 exact-ID matches, **2 legacy-ID remaps** (e.g. `10020 → 10021`),
+  **12 DQ-03 name mismatches** (flagged but kept), and **3 DQ-01 rows
+  excluded** for missing `unique_item_id`. The exclusions concentrate on
+  **C1 Day0 (2 of 10 rows, 20 %)** and **C2 Day0 (1 of 8, 12.5 %)** —
+  surfaced in `anomalies_md` and the report's DQ section so leadership
+  sees the demand they cannot fulfil.
+- **Deterministic safety nets fire when the LLM over-allocates**: when the
+  allocator proposes more cold-chain trucks than the cap (e.g. 3 for
+  C1-Day0 when the cap is 2/day), `_clip_resource_allocation` reduces it to
+  the cap and logs the rationale; `_recompute_penalty` rebuilds the score
+  from supply × demand and emits a `deferral_breakdown` the report quotes
+  verbatim. Both corrections are visible in the final HTML report.
 
 ### 4.2 Stress-test results (`stress_test_scenarios.py`)
 
-Six adversarial scenarios were run against the same 14-day CSV. The
-table below shows representative behaviour (penalties depend on live
-weather):
+Adversarial scenarios run against the same 14-day CSV. Penalties depend on
+the live weather forecast and the day's eligible-driver roster, so the
+figures below are from representative verified runs (✓ = exact figure
+captured from a live run; others marked ~ vary run-to-run):
 
-| # | Scenario | Audit attempts | Penalty | Deferred | Notes |
+| # | Scenario | Audit | Penalty (pts) | Deferred | Notes |
 |---|---|---:|---:|---:|---|
-| 0 | Baseline | 1 | low | low | Plan passes first try |
-| 1 | 20 % demand spike on C2 | 1–2 | medium | medium | Allocator shifts cold-chain trucks toward Tier-1 |
-| 2 | Driver shortage (3 instead of 6) | 1–2 | medium-high | medium | Tier-2 deferrals dominate; Tier-1 protected |
-| 3 | Cold-chain truck breakdown (1 instead of 2) | 1–2 | high | high | Clipping fires aggressively; banner on report |
-| 4 | I-95 partial closure (C1 +4 h) | 1 | low | low | Buffer increased; SLA still met |
-| 5 | Combined demand spike + driver shortage | 2–3 | very high | very high | Audit loop visible; force-pass triggers if 3 retries |
+| 0 | Baseline | 1 | **0** ✓ | **0** ✓ | Supply ≥ demand; plan passes first try |
+| 1 | 20 % demand spike on C2 | 1–2 | ~ medium | ~ | Allocator shifts cold-chain trucks toward Tier-1 |
+| 2 | Driver shortage (3 of 6) | 1–2 | ~ medium-high | ~ | `apply_workforce_to_pool` caps the driver pool; Tier-2 deferrals dominate, Tier-1 protected |
+| 3 | Cold-chain truck breakdown (1 of 2) | 1–2 | **1040** ✓ | **14** ✓ | 8 Tier-1 + 6 Tier-2 deferred; `_clip_resource_allocation` + `_recompute_penalty` fire; red Tier-1 banner |
+| 4 | Severe storm forces C1 risk = 3 | ≤3 | **0** ✓ | **0** ✓ | 40 % buffer + escalation; **human checkpoint fires** (interrupt); workforce reduced drivers 6→4 |
+| 5 | Combined spike + driver shortage | 2–3 | ~ very high | ~ | Audit loop visible; force-pass triggers if 3 retries exhausted |
 
 The audit loop **demonstrably re-prompts the planner** with specific
 violations on stressed scenarios; the deterministic penalty recomputation
-**catches LLM under-counting** in scenarios 3 and 5.
+**caught LLM under-counting in scenario 3** (LLM reported 6 deferred /
+880 pts; the deterministic recompute corrected it to 14 deferred /
+1040 pts, and the banner the report rendered was driven by the corrected
+figure, not the LLM's). Scenario 4's interrupt was verified end-to-end:
+the graph suspended at `node_human_checkpoint`, and the report's Approval
+Status section correctly read *"Required: True · Trigger: route_risk_score_0_3
+= 3 on C1_I95_NJ_BOS"* on reject and approve paths.
 
 ### 4.3 Validation strategy
 
