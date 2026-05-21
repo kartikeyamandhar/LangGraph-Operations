@@ -7,57 +7,81 @@ and live weather forecasts; runs a six-agent reasoning pipeline with a
 self-correcting audit loop, deterministic resource allocation, and a
 human-in-the-loop checkpoint; and returns a colour-coded HTML report.
 
-Built for the **UCLA MSBA AI Agents Project Challenge 2026**.
+![Executive report with human-in-the-loop approval banner](readme_images/executive_report.png)
+<sub>The executive HTML report — colour-coded status banner, per-corridor weather table with scenario-forced tags, and deterministic deferral numbers. (Run: storm forces C1 to risk 3 → manager approval required.)</sub>
 
 ---
 
-## What it does
+## Architecture (LangGraph)
 
-```
-┌─────────────────────── PARALLEL DATA GATHERING ────────────────────────────┐
-│  pdf_context        csv_analysis       weather       load_workforce_state  │
-│   (RAG over         (per-corridor      (5 + 4        (driver eligibility,  │
-│    playbook)         KPIs + item        waypoints     certifications,      │
-│                      reconciliation)    Open-Meteo)   fatigue, calibration)│
-└─────────┬─────────────────┬────────────────┬─────────────────┬─────────────┘
-          └─────────────────┴────────────────┴─────────────────┘
-                                ↓
-                        scenario_apply  ←  ScenarioParserAgent extracts
-                        ─ resource_overrides   structured overrides from the
-                        ─ demand_multipliers   user's free-text scenario, then
-                        ─ weather_overrides    overlays workforce reality
-                        ─ corridor_closures    onto the effective_resource_pool
-                                ↓
-                        planner ⟲ audit (rule + soft check + vague-phrase guard)
-                                ↓ PASS (or force-pass after 3 retries)
-                        allocator (LLM proposes → Python clips → realism check)
-                                ↓
-                        human_checkpoint  (interrupt() if any corridor risk = 3)
-                                ↓
-                        report (deterministic numbers; truthful banners)
-                                ↓
-                        email (optional)
+```mermaid
+graph TD
+    START([START]) --> PDF["📖 pdf_context<br/>RAG over playbook"]
+    START --> CSV["📦 csv_analysis<br/>item reconciliation + per-corridor KPIs"]
+    START --> WX["🌦️ weather<br/>Open-Meteo · 9 waypoints · risk score"]
+    START --> WF["👷 load_workforce_state<br/>driver eligibility · certs · calibration"]
+
+    PDF --> SA["🎯 scenario_apply<br/>parse free-text → resource / demand /<br/>weather overrides ⊕ workforce reductions"]
+    CSV --> SA
+    WX --> SA
+    WF --> SA
+
+    SA --> PL["🧠 planner<br/>48h dispatch plan + structured JSON"]
+    PL --> AU{"🔍 audit<br/>Python rules + vague-phrase guard<br/>+ LLM soft check"}
+    AU -->|FAIL · feedback| PL
+    AU -->|PASS / force-pass after 3| AL["🚛 allocator<br/>LLM proposes → clip caps →<br/>recompute penalty → realism check"]
+
+    AL --> HC{"👤 human_checkpoint<br/>any corridor risk == 3?"}
+    HC -->|"interrupt() → manager approve / reject"| RP
+    HC -->|no critical risk| RP["📝 report<br/>deterministic numbers · truthful banner"]
+    RP --> EM["✉️ email · optional"]
+    EM --> END([END])
+
+    classDef parallel fill:#e0f2fe,stroke:#0369a1,color:#0c4a6e;
+    classDef cycle fill:#fef3c7,stroke:#b45309,color:#7c2d12;
+    classDef gate fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d;
+    class PDF,CSV,WX,WF parallel;
+    class PL,AL cycle;
+    class AU,HC gate;
 ```
 
-Three independent feedback loops close the gap between proxy penalty and
-real-world fitness:
+**The only cycle** is `audit → planner` (self-correction). **The only interrupt**
+is `human_checkpoint` (suspends the graph for a manager decision when any
+corridor hits weather risk 3). Everything else is a linear, observable flow.
 
+### Three feedback loops close the gap between proxy penalty and real-world fitness
+
+```mermaid
+graph LR
+    subgraph L1[Loop 1 · Manager rating]
+        R1["Rate this plan card"] --> R2[manager_ratings.csv] --> R3["injected into PlannerAgent<br/>as preference signal"]
+    end
+    subgraph L2[Loop 2 · Workforce reality]
+        W1["driver_state.csv"] --> W2["reduces effective_resource_pool<br/>(fatigue · certs · leave)"] --> W3["realism_check_allocation<br/>warnings + violations"]
+    end
+    subgraph L3[Loop 3 · Outcome calibration]
+        O1["outcome_log.csv<br/>predicted vs actual"] --> O2["compute_calibration"] --> O3["injected into OpsDataAgent<br/>+ Calibration tab"]
+    end
 ```
-┌─ LOOP 1: Manager rating ─────────────────────────────────────────────────┐
-│  After each run → "Rate this plan" card → manager_ratings.csv            │
-│  → injected into PlannerAgent prompt next run as preference signal       │
-└──────────────────────────────────────────────────────────────────────────┘
-┌─ LOOP 2: Workforce reality ──────────────────────────────────────────────┐
-│  driver_state.csv + driver_post_shift_feedback.csv                        │
-│  → reduces effective_resource_pool (fatigue, certs, leave)                │
-│  → realism_check_allocation produces warnings + violations                │
-└──────────────────────────────────────────────────────────────────────────┘
-┌─ LOOP 3: Outcome calibration ────────────────────────────────────────────┐
-│  outcome_log.csv (predicted vs actual penalties / breaches)               │
-│  → compute_calibration → injected into OpsDataAgent prompt                │
-│  → Calibration tab visualises miscalibration over time                    │
-└──────────────────────────────────────────────────────────────────────────┘
-```
+
+---
+
+## Detailed process flow
+
+What happens, end to end, on one run:
+
+1. **Parallel data gathering** (4 nodes run concurrently)
+   - `pdf_context` — RAG retrieves business rules from the playbook PDF (Chroma + OpenAI embeddings) and `ContextAgent` structures them.
+   - `csv_analysis` — reconciles the shipment CSV against the Item Master (legacy-ID remap, name-alias resolution, DQ-01…04), computes per-corridor / per-day KPIs, and loads outcome calibration.
+   - `weather` — pulls Open-Meteo forecasts for all 9 waypoints, scores each 0–3, takes the corridor max.
+   - `load_workforce_state` — parses `driver_state.csv` into eligible drivers, cold-chain-certified count, and fatigue flags; loads recent manager ratings.
+2. **scenario_apply** — `ScenarioParserAgent` turns the user's free-text scenario into structured overrides (resource caps, demand multipliers, weather/closure, transit delay). These are applied to `effective_resource_pool`, `corridor_kpis`, and `weather_risk`. Workforce reality is layered on top (e.g. cold-chain trucks capped by certified-driver count).
+3. **planner** — `PlannerAgent` writes a 48-hour prose plan **plus** a structured JSON block (buffers, escalation, SLA-risk flags).
+4. **audit (cyclic)** — deterministic Python checks (buffer policy, escalation rule, vague-phrase guard) run first; if they pass, an `AuditAgent` LLM soft-check assesses executive-readiness. On `FAIL`, control loops back to the planner with the specific violations (max 3 retries, then force-pass with a banner).
+5. **allocator** — `AllocatorAgent` proposes truck/driver allocation; then three **deterministic** corrections run in Python: `_clip_resource_allocation` (enforce every per-day cap), `_recompute_penalty` (rebuild penalty + per-tier deferral breakdown from supply × demand), `realism_check_allocation` (workforce feasibility — fatigue, certs, trucks-need-drivers).
+6. **human_checkpoint** — if any corridor risk == 3, `interrupt()` suspends the graph until a manager approves or rejects. Otherwise it passes straight through.
+7. **report** — `ReportAgent` renders the executive HTML. All numbers are quoted verbatim from the deterministic source; the status banner follows a strict rule set; the approval section reflects the real `human_approved` flag.
+8. **email** — optional SMTP send (skips cleanly if unconfigured).
 
 ---
 
@@ -117,7 +141,7 @@ real-world fitness:
 
 ```bash
 # 1. Clone and enter the repo
-cd MSBA_AI_Agents_Demo
+cd LangGraph-Operations
 
 # 2. Create and activate a Python 3.11 virtualenv
 python3.11 -m venv .venv
@@ -179,6 +203,53 @@ pytest                             # full suite, mocked LLMs (no API cost)
 pytest -v tests/test_graph.py      # one file
 pytest -k "audit"                  # one keyword
 ```
+
+---
+
+## The dashboard, explained
+
+### Human-in-the-loop checkpoint
+![Live pipeline paused at the manager approval checkpoint](readme_images/hitl_checkpoint.png)
+<sub>When any corridor hits weather risk 3, `interrupt()` suspends the graph and the live-pipeline view surfaces an **Approve / Reject** decision. Nothing is published until a manager decides. The corridor cards show the forced risk score and the proposed allocation.</sub>
+
+### Validation feedback loop
+![Manager feedback tab with rating form and history](readme_images/feedback_tab.png)
+<sub>After each run the manager rates the plan (1–5 stars + tags + comment). Ratings persist to `manager_ratings.csv`, feed the rolling average, and are injected into the next run's PlannerAgent as a preference signal — one of the three feedback loops that ground the system in real-world fitness.</sub>
+
+### What every control does
+
+**Sidebar**
+
+| Element | What it does |
+|---|---|
+| **Shipment file** dropdown | Swap the operational dataset — real 14-day multi-corridor feed, or any of 6 synthetic profiles (baseline, volume spike, growth trend, DQ-heavy, Tier-1 surge, 60-day rich). |
+| **Scenario preset chips** | One-click disruptions (cold-chain breakdown, driver shortage, demand spike, severe storm, I-95 closure, combined). Each fills the text box with a tested phrasing. |
+| **Free-text scenario box** | Describe any disruption in plain English; `ScenarioParserAgent` converts it to structured overrides. |
+| **▶ Run Analysis** | Executes the full LangGraph pipeline on the selected data + scenario. |
+| **↺ New Run** | Resets session state (fresh thread, cleared approval) for the next run. |
+
+**Hero strip (top KPI cards)**
+
+| Card | Meaning |
+|---|---|
+| **Worst Corridor Risk** | Highest route risk score across both corridors (0–3) with severity label. |
+| **Penalty Score** | Deterministic total penalty (Tier-1=100, Tier-2=40 pts/unit). Lower is better. |
+| **Deferred Units** | Shipments that could not be dispatched under the constraints. |
+| **Manager Approval** | "Not required", "Awaiting", or "Approved" — reflects the real checkpoint state. |
+| **Scenario** | "Baseline" or "Active" with a one-line summary of the applied disruption. |
+| **Workforce strip** | Eligible drivers (of roster), cold-chain certified count, fatigue flags, workforce notes raised this run. |
+
+**Tabs**
+
+| Tab | Contents |
+|---|---|
+| **🔄 Live pipeline** | Node-by-node execution log; audit FAIL/PASS; the Approve/Reject buttons when the checkpoint fires. |
+| **🎯 Scenario impact** | Before/after diff of what the scenario changed (resources, demand, weather, closures) and the resulting penalty. |
+| **📄 Executive report** | The full colour-coded HTML report (sandboxed iframe) + a Download button. |
+| **📊 Deep dive** | Per-waypoint weather chart, per-corridor KPI table, historical trend, allocation table, audit & DQ notes. |
+| **⭐ Feedback** | Rate-this-plan form + feedback history with rolling average (Loop 1). |
+| **📈 Outcomes** | Log actual penalties / deferrals / breaches the morning after (Loop 3 input). |
+| **🎯 Calibration** | Predicted-vs-actual scatter against the perfect-calibration line + MAE / bias metrics. |
 
 ---
 
@@ -259,8 +330,8 @@ See `docs/PROJECT_REPORT.md` for the full technical & business write-up.
 
 ---
 
-## Submission
+## Documentation
 
-This repository is the deliverable for the UCLA MSBA AI Agents Project
-Challenge 2026. See `docs/PROJECT_REPORT.md` for the technical & business
-documentation. Submission deadline: **Sunday May 10 2026, 12:00 PM PST**.
+See [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md) for the full technical &
+business write-up — executive summary, key assumptions, technical methodology,
+results & validation, and limitations & next steps.
