@@ -449,6 +449,23 @@ def test_append_manager_rating_appends_to_existing(tmp_path: Path):
     assert len(df) == 2
 
 
+def test_manager_ratings_most_recent_first_even_on_timestamp_tie(tmp_path: Path):
+    """Regression: two ratings with the SAME timestamp must still order by
+    append position (later append = more recent), deterministically."""
+    target = tmp_path / "ratings.csv"
+    # Hand-write two rows with an IDENTICAL timestamp to force the tie
+    target.write_text(
+        "timestamp,run_id,manager_id,scenario,star_rating,tags,comment\n"
+        "2026-05-12T10:00:00,run-A,M-1,baseline,5,Right-sized,first\n"
+        "2026-05-12T10:00:00,run-B,M-1,baseline,2,Risky,second\n"
+    )
+    ratings = load_manager_ratings(str(target), last_n=10)
+    assert len(ratings) == 2
+    # run-B was appended last → must be returned first
+    assert ratings[0]["run_id"] == "run-B"
+    assert ratings[1]["run_id"] == "run-A"
+
+
 def test_append_outcome_creates_file(tmp_path: Path):
     target = tmp_path / "outcomes.csv"
     append_outcome(

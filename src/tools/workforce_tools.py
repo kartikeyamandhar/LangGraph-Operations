@@ -181,7 +181,12 @@ def load_driver_post_shift_feedback(
     if df.empty:
         return []
     # Most recent first, capped to last_n records
-    df = df.sort_values("timestamp", ascending=False).head(last_n)
+    # Most-recent-first. Tie-break on append order (later row = more recent)
+    # so two records written in the same second still order deterministically.
+    df = df.reset_index(drop=True)
+    df["_row"] = range(len(df))
+    df = (df.sort_values(["timestamp", "_row"], ascending=[False, False])
+            .drop(columns="_row").head(last_n))
     return df.to_dict(orient="records")
 
 
@@ -195,7 +200,12 @@ def load_manager_ratings(
     df = pd.read_csv(p)
     if df.empty:
         return []
-    df = df.sort_values("timestamp", ascending=False).head(last_n)
+    # Most-recent-first. Tie-break on append order (later row = more recent)
+    # so two records written in the same second still order deterministically.
+    df = df.reset_index(drop=True)
+    df["_row"] = range(len(df))
+    df = (df.sort_values(["timestamp", "_row"], ascending=[False, False])
+            .drop(columns="_row").head(last_n))
     return df.to_dict(orient="records")
 
 
@@ -213,7 +223,7 @@ def append_manager_rating(
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
     new_row = pd.DataFrame([{
-        "timestamp": datetime.utcnow().isoformat(timespec="seconds"),
+        "timestamp": datetime.utcnow().isoformat(timespec="microseconds"),
         "run_id": run_id,
         "manager_id": manager_id,
         "scenario": scenario or "baseline",
@@ -246,7 +256,7 @@ def append_outcome(
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
     new_row = pd.DataFrame([{
-        "timestamp": datetime.utcnow().isoformat(timespec="seconds"),
+        "timestamp": datetime.utcnow().isoformat(timespec="microseconds"),
         "run_id": run_id,
         "scenario": scenario or "baseline",
         "predicted_penalty": int(predicted_penalty),
