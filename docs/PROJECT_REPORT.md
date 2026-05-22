@@ -57,24 +57,24 @@ leadership has either passed every rule check or carries a clear
 ### 2.1 Logistics constraints
 | Assumption | Source | Value |
 |---|---|---|
-| Truck capacity | Playbook §6 | 10 units / truck |
-| Daily packing buffer | Playbook §6 | +10 % over actual demand |
+| Truck capacity | Playbook Section 6 | 10 units / truck |
+| Daily packing buffer | Playbook Section 6 | +10 % over actual demand |
 | Driver pool / day | `Resource_availability_48h.csv` | 6 drivers |
 | Standard trucks / day | `Resource_availability_48h.csv` | 4 trucks |
 | Cold-chain trucks / day | `Resource_availability_48h.csv` | 2 trucks |
-| Planning horizon | Playbook §5 | 48 hours (Day0 + Day1) |
+| Planning horizon | Playbook Section 5 | 48 hours (Day0 + Day1) |
 | Weather forecast horizon | Open-Meteo | 2 forecast days |
 
 The seven logistics constraints form the physical backbone of every
 allocation decision the system makes. Each is treated as a hard ceiling that
 no LLM output is permitted to exceed.
 
-- **Truck capacity — 10 units per truck (Playbook §6).** Each truck carries up
+- **Truck capacity — 10 units per truck (Playbook Section 6).** Each truck carries up
   to 10 units, forming the basis for all supply, allocation, and penalty
   calculations. Supply is computed as `trucks × 10`; excess demand is deferred
   and penalised. Because this value is centralised in `src/graph.py`, a
   fleet-capacity change requires updating a single constant.
-- **Daily packing buffer — +10 % (Playbook §6).** Demand is inflated by 10 %
+- **Daily packing buffer — +10 % (Playbook Section 6).** Demand is inflated by 10 %
   before truck allocation to account for repacking, damaged goods, and
   last-minute changes: `required_trucks = ceil(demand × 1.10 / 10)`. This
   buffer is always active and stacks with weather-risk buffers.
@@ -90,7 +90,7 @@ no LLM output is permitted to exceed.
   capacity to 20 units/day. Excess cold-chain demand is deferred, never moved
   on standard trucks. Effective capacity is further constrained by the number
   of certified eligible drivers.
-- **Planning horizon — 48 h / Day0 + Day1 (Playbook §5).** Covers current-day
+- **Planning horizon — 48 h / Day0 + Day1 (Playbook Section 5).** Covers current-day
   shipments and next-day staging, enabling limited demand smoothing within the
   reliable forecast range.
 - **Weather forecast horizon — 2 days (Open-Meteo).** Daily aggregates for
@@ -98,7 +98,7 @@ no LLM output is permitted to exceed.
   corridor; the corridor takes the **maximum** waypoint risk so a single
   hazardous segment is never averaged away.
 
-### 2.2 Risk thresholds (Playbook §5.2)
+### 2.2 Risk thresholds (Playbook Section 5.2)
 | Risk Score | Trigger | Required buffer | Escalation |
 |---|---|---|---|
 | 0 | No flags | 0 % | No |
@@ -115,7 +115,7 @@ The risk score is the count of flags set (0–3). Taking the **maximum** across
 waypoints — rather than the mean — is a deliberate conservative choice: a
 single dangerous waypoint is enough to impose the higher buffer, because a
 refrigerated truck cannot bypass a flooded or iced segment mid-route. The
-buffer policy is applied multiplicatively on top of the §6 packing buffer, so
+buffer policy is applied multiplicatively on top of the Section 6 packing buffer, so
 at risk score 3 the total capacity overhead is `1.10 × 1.40 = 1.54×` base
 demand — deliberately stringent given a Tier-1 SLA miss costs 100 pts/unit.
 Escalation at score 3 is a **hard rule in the audit's deterministic Python
@@ -123,7 +123,7 @@ check**, not a soft preference: the planner cannot ship a compliant plan with
 `escalation_triggered = false` when route risk is 3 — the audit rejects it and
 loops back.
 
-### 2.3 Penalty model (Playbook §7)
+### 2.3 Penalty model (Playbook Section 7)
 | Event | Penalty (pts/unit) |
 |---|---|
 | Tier 1 SLA violation (life-critical) | 100 |
@@ -152,7 +152,7 @@ three penalty types encode a deliberate clinical-priority hierarchy.
   cold-chain supply means units wait, not that they move on the wrong vehicle.
 
 The weights are taken from the playbook, not learned. The Outcome Calibration
-loop (§4.4, Loop 3) tracks predicted-vs-actual penalty over time; persistent
+loop (Section 4.4, Loop 3) tracks predicted-vs-actual penalty over time; persistent
 bias in either direction would signal the weights need revision.
 
 ### 2.4 Data assumptions
@@ -171,7 +171,7 @@ surfaced in the report's DQ section. Weather is fetched live from Open-Meteo
 (no API key, no rate limiting at 5–9 waypoint queries/run) using daily
 aggregates only, since the playbook thresholds are stated in daily terms.
 Resource availability is read from `Resource_availability_48h.csv` and
-immediately reduced by the Workforce Reality loop (§4.4, Loop 2) before any
+immediately reduced by the Workforce Reality loop (Section 4.4, Loop 2) before any
 allocation, so the allocator never sees an inflated supply figure.
 
 **2.4.2 Business rules — the PDF playbook is the single source of truth.**
@@ -327,9 +327,9 @@ hallucination guardrails.
 | **Exclusion rate** | `excluded_rows / total_rows × 100` per corridor / day | Reconciled CSV | < 5 % healthy, ≥ 10 % warn, ≥ 20 % alert |
 | **Cold-chain demand** | Count of valid rows where `product_class` ∈ COLD_CHAIN_CLASSES | Reconciled CSV + Item Master | Compared against daily cold-chain truck supply (2 trucks × 10 units = 20 units/day) |
 | **Tier-1 mix** | `tier1_units / valid_rows × 100` per corridor | Item Master `SLA_TIER` map | Higher mix → higher penalty if deferred |
-| **Trucks needed (cold-chain)** | `ceil(cold_chain_units × 1.10 / 10)` | Playbook §6 capacity model | Compared against `RESOURCE_POOL["DayN"]["truck_temp_controlled"]` |
+| **Trucks needed (cold-chain)** | `ceil(cold_chain_units × 1.10 / 10)` | Playbook Section 6 capacity model | Compared against `RESOURCE_POOL["DayN"]["truck_temp_controlled"]` |
 | **Route risk score** | `max(waypoint risk scores)` per corridor | Open-Meteo daily aggregates | 0 / 1 / 2 / 3 → buffer 0 % / 10 % / 25 % / 40 % |
-| **Required buffer %** | `BUFFER_POLICY[route_risk_score]` | Playbook §5.2 | Audit FAIL if planner deviates |
+| **Required buffer %** | `BUFFER_POLICY[route_risk_score]` | Playbook Section 5.2 | Audit FAIL if planner deviates |
 | **Total penalty score** | `Σ(deferred Tier-1) × 100 + Σ(deferred Tier-2) × 40` | Truck supply × demand | Lower is better; reported per scenario |
 | **Audit attempts** | `audit_attempts` counter on AppState | Graph state | ≥ 3 → force-pass with banner |
 

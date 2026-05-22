@@ -270,16 +270,16 @@ pytest -k "audit"                  # one keyword
 
 Defined at the top of `src/graph.py`:
 
-- `CORRIDOR_WAYPOINTS` — hardcoded from Playbook v0.2 §3.2; if you add a
+- `CORRIDOR_WAYPOINTS` — hardcoded from Playbook v0.2 Section 3.2; if you add a
   corridor, register its waypoints here (lat/lon) so the weather node fans out
   across them.
-- `BUFFER_POLICY` — `{0: 0%, 1: 10%, 2: 25%, 3: 40%}` (Playbook §5.2).
+- `BUFFER_POLICY` — `{0: 0%, 1: 10%, 2: 25%, 3: 40%}` (Playbook Section 5.2).
 - `RESOURCE_POOL` — daily driver / truck / cold-chain truck availability
-  (Playbook §6).
+  (Playbook Section 6).
 - `MAX_AUDIT_ATTEMPTS` — set to 3; after that the audit force-passes and
   flags violations on the report.
 
-Penalty model in `_recompute_penalty` (Playbook §7):
+Penalty model in `_recompute_penalty` (Playbook Section 7):
 - Tier 1 SLA violation: **100 pts/unit** · Tier 2: **40 pts/unit**
 - Cold-chain breach: **+80 pts/unit** · Truck capacity: **10 units/truck**
 
